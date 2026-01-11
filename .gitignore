@@ -1,17 +1,13 @@
-# Dependency directories
+# Ignore node_modules everywhere
 node_modules/
-frontend/node_modules/
+**/node_modules/
 
-# Python/Django
+# Python/Django ignores
 __pycache__/
 *.pyc
 db.sqlite3
 .venv/
-venv/
 
-# Production builds
+# Build folders
 dist/
 build/
-
-# Environment variables
-.env
