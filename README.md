@@ -1,147 +1,190 @@
-# Unveiling Kerala — Myths, Legends & Folklore Platform
+Unveiling Kerala — Revealing the Unknown
 
-A full‑stack cultural storytelling platform focused on the **myths, legends, folklore, and hidden stories of Kerala**. The project allows authenticated users to read and submit stories, while all content and users are managed centrally through the **Django Admin Panel**.
+A full-stack web application focused on the myths, legends, folklore, and hidden stories of Kerala.
+The platform allows users to explore cultural stories, while authenticated users can submit, manage, and control their own content through a personal dashboard.
+All content moderation is handled through the Django Admin Panel.
 
-This project is designed primarily as a **learning‑oriented full‑stack application**, emphasizing authentication, protected routes, form handling, and content management rather than complex database modeling.
+Tech Stack
+Frontend
 
----
+React (Vite)
 
-## Tech Stack
+React Router DOM
 
-### Frontend
+Axios (API communication)
 
-* **React (Vite)**
-* **React Router DOM** 
-* **CSS (custom styling)**
-* Native **Fetch API** 
+CSS (custom styling)
 
-### Backend
+Framer Motion (page transitions & animations)
 
-* **Django**
-* **Django REST Framework**
-* **JWT Authentication** (login & signup)
-* **Django Admin Panel** for managing users and stories
+Backend
 
----
+Django
 
-## Key Characteristics
+Django REST Framework
 
-* ✅ Authentication handled using JWT
-* ✅ Stories and users managed via Django Admin
-* ✅ Story pages use **slug‑based routing** 
+JWT Authentication (Login & Signup)
 
----
+Django Admin Panel
 
-## Features
+Key Characteristics
 
-* Public browsing of myths, legends, districts, and folklore
-* **User authentication (Login / Signup)** using Django authentication
-* **User story submission system**
+✅ Full-stack web application
 
-  * Only logged-in users can submit stories
-  * Stories are initially saved as *pending approval*
-* **User dashboard**
+✅ JWT-based authentication
 
-  * View own submitted stories
-  * Edit own stories
-  * Delete own stories
-* **Admin moderation workflow**
+✅ Axios-based API communication
 
-  * Admin reviews submissions via Django Admin
-  * Only *approved stories* are visible on public pages
-* Slug-based routing for clean URLs
-* Dark, immersive UI inspired by folklore themes
+✅ Slug-based routing
 
-### Authentication
+✅ User-owned content management
 
-* User **Login & Signup**
-* JWT token storage using `localStorage`
-* Protected routes (submission, dashboard)
-* Automatic redirect to login when unauthenticated
+✅ Admin-moderated publishing workflow
 
-### Stories & Legends
+Features
+Public Access
 
-* Browse myths and legends by category
-* Slug‑based story detail pages
-* Short description + full story view
-* Image upload support
+Browse myths, legends, folklore, and district-based stories
 
-### Content Submission
+Slug-based story detail pages
 
-* Authenticated users can submit stories
-* Edit existing stories (if permitted)
-* Form validation on frontend
-* Access control enforced by backend
+Dark, immersive folklore-themed UI
 
-### Admin Management
+Authentication
 
-* All users managed via **Django Admin**
-* All stories created, edited, approved via **Django Admin**
-* No direct database manipulation from frontend
+User Signup & Login
 
----
+JWT tokens stored in localStorage
 
-## Project Structure
+Axios automatically attaches tokens for protected requests
 
-```
+Protected routes with automatic redirect on unauthorized access
+
+Stories & Content
+
+Short descriptions loaded from frontend data
+
+Full story content fetched from backend using Axios
+
+Image support for stories
+
+SEO-friendly slug URLs
+
+User Dashboard
+
+Each user has a personal dashboard
+
+Users can:
+
+View their own submitted stories
+
+Edit their own stories
+
+Delete their own stories
+
+Users cannot access or modify other users’ content
+
+All access control enforced by the backend
+
+Story Submission
+
+Only authenticated users can submit stories
+
+Submitted stories:
+
+Are marked as pending approval
+
+Become publicly visible only after admin approval
+
+Secure form validation on frontend and backend
+
+Admin Management
+
+Admin controls everything via Django Admin Panel
+
+Admin can:
+
+Approve or reject submitted stories
+
+Manage users
+
+Edit or delete any story
+
+No direct database manipulation from the frontend
+
+Project Structure
 MyProject/
 │
-├── unveiling-kerala/
+├── unveiling-kerala/                 # React Frontend
 │   ├── src/
 │   │   ├── components/
 │   │   ├── pages/
 │   │   ├── data/
 │   │   ├── assets/
+│   │   ├── api/axios.js
 │   │   ├── App.jsx
 │   │   └── main.jsx
 │   └── index.html
 │
-├── unveiling-kerala-backend/
+├── unveiling-kerala-backend/          # Django Backend
 │   ├── manage.py
 │   ├── unveiling_kerala/
 │   └── destinations/
 │
 └── README.md
-```
 
----
+API Communication (Axios)
 
-## Authentication Flow
+Axios is used for all backend communication
 
-1. User attempts to access a protected page
-2. If not logged in:
+Centralized Axios instance:
 
-   * Redirected to **Login page**
-   * After login, redirected back to original page
-3. JWT token stored in `localStorage`
-4. Token sent in `Authorization` header for protected requests
+Base URL configured
 
----
+JWT token automatically attached
 
-## Slug‑Based Routing
+Example endpoints:
 
-* Stories are accessed using readable slugs instead of numeric IDs
-* Example:
+GET /api/stories/
 
-  ```
-  /stories/malampuzha-yakshi-legend
-  ```
-* Improves SEO and readability
+GET /api/stories/<slug>/
 
----
+POST /api/submit/
 
-## Purpose of the Project
+GET /api/my-stories/
 
-* Learn full‑stack integration (React + Django)
-* Understand JWT authentication
-* Practice protected routing in React
-* Explore cultural storytelling through technology
+PUT /api/stories-manage/<id>/
 
-## Author
+DELETE /api/stories-manage/<id>/
 
-**Syama M**
-Full‑Stack Developer 
+Slug-Based Routing
 
----
+Stories are accessed using readable slugs instead of numeric IDs:
 
-> *Unveiling Kerala is an exploration of stories that live beyond maps — whispered through hills, temples, forests, and forgotten paths.*
+/stories/mannarasala-temple
+
+
+This improves:
+
+SEO
+
+Readability
+
+Maintainability
+
+Purpose of the Project
+
+Build a production-style full-stack web application
+
+Implement real authentication and authorization flows
+
+Design a user-owned content system
+
+Preserve and present Kerala’s cultural stories through modern web technologies
+
+Author
+
+Syama M
+Full-Stack Developer
+
+Unveiling Kerala is an exploration of stories that live beyond maps — whispered through hills, temples, forests, and forgotten paths.
