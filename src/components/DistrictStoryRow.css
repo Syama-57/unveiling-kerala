@@ -1,0 +1,60 @@
+.district-story {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.district-story.reverse {
+  flex-direction: row-reverse;
+}
+
+.district-image {
+  flex: 1;
+}
+
+.district-image img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.district-content {
+  flex: 1;
+}
+
+.district-content h2 {
+  font-size: 28px;
+  margin-bottom: 12px;
+  color: black;
+}
+
+.district-content p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: black;
+}
+
+/* reuse your existing button style */
+.read-more {
+  padding: 10px 22px;
+  border-radius: 8px;
+  border: 1px solid black;
+  color: black;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .district-story,
+  .district-story.reverse {
+    flex-direction: column;
+  }
+
+  .district-image img {
+    height: 220px;
+  }
+}

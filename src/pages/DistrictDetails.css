@@ -1,0 +1,83 @@
+/* Page wrapper */
+/* PAGE BASE */
+/* THE MAIN STAGE */
+
+.district-details-page {
+  min-height: 100vh;
+  padding: 100px 10%;
+  background: #050505; /* Pure dark base */
+  background-image: url("../assets/district-bg.jpg");
+  background-size: cover;
+  background-attachment: fixed; /* Parallax effect */
+  background-position: center;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* GRADIENT OVERLAY (Vignette) */
+.mystic-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.95) 100%);
+  z-index: 0;
+}
+
+.district-heading {
+  position: relative;
+  z-index: 2;
+  font-family: 'Crimson Text', serif;
+  font-size: clamp(3rem, 10vw, 5rem);
+  text-align: center;
+  color: #fff;
+  text-transform: lowercase;
+  margin-bottom: 120px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+/* CARDS LIST */
+.stories-list {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 150px; /* High spacing for dramatic effect */
+}
+
+/* Styling the StoryCard within this container */
+.stories-list > div {
+  width: 100%;
+}
+
+.no-stories {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  font-style: italic;
+  font-size: 1.5rem;
+  color: #666;
+  margin-top: 100px;
+}
+
+/* CUSTOM SCROLLBAR (Mysterious Dark) */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #bfa15d; /* Gold hover */
+}
+
+@media (max-width: 768px) {
+  .district-details-page {
+    padding: 60px 5%;
+  }
+  .stories-list {
+    gap: 80px;
+  }
+}

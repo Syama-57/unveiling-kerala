@@ -1,0 +1,104 @@
+/* MAIN CONTAINER */
+.landing-container {
+  position: fixed;     /* FIXED to cover entire viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;    /* prevent scrolling */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;       /* on top of everything */
+}
+
+/* FULLSCREEN VIDEO */
+.landing-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  filter: brightness(45%) contrast(120%) saturate(85%);
+  z-index: 1;
+}
+
+/* DARK OVERLAY WITH WARM TINT */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.60),
+    rgba(20, 15, 5, 0.65)
+  );
+  backdrop-filter: blur(2px);
+  z-index: 2;
+}
+
+/* TEXT CONTENT */
+.landing-content {
+  position: relative;
+  z-index: 3;          /* above video & overlay */
+  text-align: center;
+  color: #f5e8c7;
+  animation: fadeIn 2s ease-out;
+}
+
+/* TITLE */
+.landing-title {
+  font-family: "Cinzel", serif;
+  font-size: 4.3rem;
+  letter-spacing: 3px;
+  font-weight: 700;
+  text-shadow: 0 0 18px rgba(255, 200, 120, 0.22);
+  animation: slideDown 1.5s ease-out;
+}
+
+/* SUBTITLE */
+.landing-sub {
+  font-family: "Noto Serif Malayalam", serif;
+  font-size: 1.5rem;
+  margin-top: 12px;
+  opacity: 0.9;
+  color: #f7ebd4;
+  text-shadow: 0 0 10px rgba(255, 215, 150, 0.25);
+  animation: fadeIn 2.3s ease-out;
+}
+
+/* BUTTON */
+.enter-btn {
+  margin-top: 28px;
+  padding: 13px 34px;
+  background: rgba(255, 245, 225, 0.18);
+  border: 1px solid rgba(255, 235, 204, 0.7);
+  color: #ffeecc;
+  font-size: 1.1rem;
+  font-family: "Cinzel", serif;
+  letter-spacing: 1px;
+  border-radius: 8px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: 0.3s ease-in-out;
+  box-shadow: 0 0 12px rgba(255, 220, 150, 0.18);
+}
+
+.enter-btn:hover {
+  background: rgba(255, 236, 200, 0.30);
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(255, 215, 160, 0.28);
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

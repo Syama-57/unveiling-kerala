@@ -1,0 +1,138 @@
+/* NAVBAR CONTAINER */
+.navbar {
+  position: fixed; /* Moves it over the content */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: transparent; /* Makes it blend into the hero image */
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* SCROLLED STATE */
+.navbar.scrolled {
+  background: rgba(5, 5, 5, 0.85); /* Deep black glass */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(196, 155, 58, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.nav-content {
+  max-width: 1400px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4rem;
+}
+
+/* LOGO & BACK BUTTON */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-back-arrow {
+  background: none;
+  border: none;
+  color: #c49b3a;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.nav-back-arrow:hover {
+  transform: translateX(-5px);
+}
+
+.logo {
+  font-family: 'Cinzel', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #c49b3a;
+  text-decoration: none;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(196, 155, 58, 0.3);
+}
+
+/* NAVIGATION LINKS */
+.links {
+  display: flex;
+  align-items: center;
+}
+
+.links a {
+  margin-left: 35px;
+  text-decoration: none;
+  color: darkolivegreen;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: 0.4s;
+  position: relative;
+}
+
+/* Animated Underline Effect */
+.links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -5px;
+  left: 0;
+  background-color: #c49b3a;
+  transition: 0.3s;
+}
+
+.links a:hover::after, 
+.links a.active::after {
+  width: 100%;
+}
+
+.links a:hover, .links a.active {
+  color: #c49b3a;
+}
+
+/* SPECIAL BUTTONS */
+.nav-login-btn {
+  border: 1px solid #c49b3a;
+  padding: 8px 20px;
+  border-radius: 2px;
+  margin-left: 35px !important;
+}
+
+.nav-login-btn:hover {
+  background: #c49b3a;
+  color: #000 !important;
+}
+
+.logout-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 6px 15px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  margin-left: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  border-color: #ff6b6b;
+  color: #ff6b6b;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .nav-content { padding: 0 2rem; }
+  .links a { margin-left: 15px; font-size: 0.8rem; }
+}

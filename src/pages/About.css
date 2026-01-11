@@ -1,0 +1,70 @@
+/* Ensure the background covers everything and has a dark tint */
+.about-wrapper {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  /* Dark overlay so text is readable */
+  box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.4); 
+}
+
+/* THE GLASS CARD */
+.about-glass-card {
+  width: 80%;
+  max-width: 850px;
+  /* Glassmorphism */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px) saturate(120%);
+  -webkit-backdrop-filter: blur(15px) saturate(120%);
+  
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  color: white;
+  transition: transform 0.5s ease;
+}
+
+.about-glass-card:hover {
+  transform: scale(1.02); /* Subtle zoom when looking at it */
+}
+
+/* TYPOGRAPHY */
+.about-glass-card h1 {
+  font-family: 'Crimson Text', serif;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.gold-accent {
+  color: #c5a059; /* Classic mysterious gold */
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 0.9rem;
+}
+
+.about-description {
+  line-height: 1.8;
+  font-size: 1.15rem;
+  color: #d1d1d1;
+  max-width: 700px;
+  font-style: italic; /* Makes it feel like a story */
+}
+
+/* BUTTON STYLE */
+.about-btn-mystic {
+  padding: 12px 35px;
+  border-radius: 50px;
+  border: 1px solid #c5a059;
+  background: transparent;
+  color: #c5a059;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+}
+
+.about-btn-mystic:hover {
+  background: #c5a059;
+  color: #000;
+  box-shadow: 0 0 20px rgba(197, 160, 89, 0.4);
+}

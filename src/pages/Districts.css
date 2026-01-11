@@ -1,0 +1,117 @@
+/* BASE PAGE */
+.districts-page {
+  padding: 120px 8%;
+  background-color: #050505;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Crimson Text', serif;
+}
+
+/* BACKGROUND DEPTH */
+.districts-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.8) 100%);
+  pointer-events: none;
+}
+
+/* HEADINGS */
+.district-main-heading {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: #fff;
+  text-align: center;
+  letter-spacing: 5px;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.district-sub-heading {
+  text-align: center;
+  color: #c5a059; /* Gold accent */
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 0.9rem;
+  margin-bottom: 80px;
+  position: relative;
+  z-index: 2;
+}
+
+/* GRID */
+.district-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.district-link {
+  text-decoration: none !important;
+}
+
+/* THE MYSTIC CARD */
+.district-card-mystic {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0; /* Boxy look feels more like a book */
+  padding: 15px;
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  text-align: center;
+}
+
+.dist-img-wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 200px;
+  margin-bottom: 15px;
+}
+
+.dist-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(40%);
+  transition: 0.8s ease;
+}
+
+.dist-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+}
+
+/* CARD TEXT */
+.district-card-mystic h3 {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.4rem;
+  color: #e0e0e0;
+  margin: 10px 0;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+/* HOVER EFFECTS */
+.district-card-mystic:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #c5a059;
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+}
+
+.district-card-mystic:hover img {
+  filter: grayscale(0%);
+  transform: scale(1.1);
+}
+
+.district-card-mystic:hover h3 {
+  color: #c5a059;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .districts-page { padding: 80px 5%; }
+  .district-main-heading { font-size: 2rem; }
+}

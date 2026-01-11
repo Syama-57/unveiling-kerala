@@ -1,0 +1,79 @@
+/* container = layout only, NOT a card */
+.story-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  margin-bottom: 90px;
+
+  /* REMOVE card visuals */
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* alternate layout */
+.story-card.reverse {
+  flex-direction: row-reverse;
+}
+
+/* image */
+.story-image {
+  flex: 1;
+}
+
+.story-image img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 14px; /* keep soft image corners only */
+}
+
+/* content */
+.story-body {
+  flex: 1;
+  padding-top: 12px;
+}
+
+.story-body h3 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: white;
+}
+
+.story-short {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: white;
+}
+
+/* button */
+.read-more {
+  padding: 10px 24px;
+  border-radius: 8px;
+  border: 1px solid black;
+  background: transparent;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.read-more:hover {
+  background: grey;
+  color: white;
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .story-card,
+  .story-card.reverse {
+    flex-direction: column;
+  }
+
+  .story-image img {
+    height: 220px;
+  }
+}

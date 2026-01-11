@@ -1,0 +1,185 @@
+/* CONTAINER SETUP */
+.submit-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 120px 20px;
+  background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+              url('../assets/kerala-hero.jpg') no-repeat center center / cover;
+  margin-top: 0 !important; /* Forces it to the top */
+  padding-top: 80px; /* Adjust this so your title doesn't get covered by the Navbar */
+  min-height: 100vh;
+}
+            
+
+/* THE GLASS CARD */
+.submit-glass-card {
+  background: rgba(15, 15, 15, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  padding: 3rem;
+  width: 100%;
+  max-width: 650px;
+  text-align: center;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
+}
+
+.mystic-title {
+  font-family: 'Cinzel', serif;
+  color: #c5a059;
+  letter-spacing: 4px;
+}
+
+.mystic-subtitle {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.75rem;
+  color: #777;
+}
+
+/* FORM ELEMENTS */
+.submit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 2rem;
+}
+
+/* FIXING THE WHITE DROPDOWNS */
+.mystic-input, .mystic-select, .mystic-textarea {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #fff !important;
+  padding: 12px 15px;
+  border-radius: 0;
+  transition: 0.3s;
+}
+
+/* This targets the actual list that pops out */
+.mystic-select option {
+  background-color: #111 !important;
+  color: #c5a059 !important;
+  padding: 10px;
+}
+
+/* Custom Arrow for Select */
+.mystic-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c5a059' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+}
+
+.mystic-input:focus, .mystic-select:focus, .mystic-textarea:focus {
+  border-color: #c5a059 !important;
+  outline: none;
+  box-shadow: 0 0 10px rgba(197, 160, 89, 0.2);
+}
+
+/* LAYOUT ROW */
+.mystic-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* BUTTONS */
+.btn-back-mystic {
+  background: transparent;
+  border: 1px solid #c5a059;
+  color: #c5a059;
+  padding: 5px 20px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.submit-btn-gold {
+  background: #c5a059;
+  color: #000;
+  border: none;
+  padding: 12px;
+  font-family: 'Cinzel', serif;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+
+.submit-btn-gold:hover {
+  background: #fff;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+/* FILE BOX */
+.file-box {
+  text-align: left;
+  border: 1px dashed rgba(197, 160, 89, 0.3);
+  padding: 15px;
+}
+
+.file-box label {
+  display: block;
+  color: #888;
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+}
+
+/* ERROR/SUCCESS */
+.mystic-error { color: #ff6b6b; margin-top: 10px; font-style: italic; }
+.mystic-success { color: #c5a059; margin-top: 10px; font-weight: bold; }
+
+.dashboard-list {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dashboard-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.category-tag {
+  font-size: 0.8rem;
+  color: #d4af37;
+  text-transform: uppercase;
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-edit-small {
+  background: #d4af37;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: black;
+}
+
+.btn-delete-small {
+  background: transparent;
+  border: 1px solid #ff4444;
+  color: #ff4444;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 600px) {
+  .mystic-row { grid-template-columns: 1fr; }
+  .submit-glass-card { padding: 1.5rem; }
+}

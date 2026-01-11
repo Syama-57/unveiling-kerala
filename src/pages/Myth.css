@@ -1,0 +1,142 @@
+/* GLOBAL THEME */
+.myths-page {
+  background: #050505; /* Deeper black */
+  color: #e0e0e0;
+  min-height: 100vh;
+  font-family: 'Crimson Text', 'Segoe UI', serif;
+}
+
+.myths-hero {
+  height: 50vh;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2), #050505), 
+              url("/src/assets/myths/hero-bg.jpg") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.myths-hero h1 {
+  font-size: clamp(2rem, 8vw, 4rem);
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: lowercase;
+}
+
+/* CARDS & GRID */
+.myths-container {
+  width: 90%;
+  max-width: 1400px;
+  margin: -80px auto 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.category-title {
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  color: #bfa15d; /* Gold tint */
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  border-left: 3px solid #bfa15d;
+  padding-left: 15px;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+/* CARD ENHANCEMENTS */
+.card {
+  background: #0a0a0a;
+  border: 1px solid #1a1a1a;
+  border-radius: 0; /* Boxy book-style */
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  height: 100%;
+}
+
+.card:hover {
+  border-color: #bfa15d;
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+}
+
+.card-img-container {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(40%);
+  transition: 0.5s ease;
+}
+
+.card:hover img {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #0a0a0a, transparent);
+}
+
+/* BADGE */
+.user-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(191, 161, 93, 0.9);
+  color: black;
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+  z-index: 10;
+}
+
+/* CARD BODY */
+.card-body h3 {
+  font-family: serif;
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+
+.card-short {
+  color: #999;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* THE BUTTON - SLEEK OUTLINE STYLE */
+.read-more-btn-alt {
+  background: transparent;
+  border: 1px solid #444;
+  color: #bfa15d;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+.read-more-btn-alt:hover {
+  background: #bfa15d;
+  color: #000;
+  border-color: #bfa15d;
+}
+
+.district {
+    color: #555;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
