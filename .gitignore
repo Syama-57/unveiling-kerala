@@ -1,38 +1,17 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-# Node / Frontend
+# Dependency directories
 node_modules/
-dist/
-dist-ssr/
-*.local
+frontend/node_modules/
 
-# Python / Django
+# Python/Django
 __pycache__/
-*.py[cod]
-*.sqlite3
-.env
-.env.*
+*.pyc
+db.sqlite3
+.venv/
 venv/
-ENV/
-env/
 
-# Django media (optional – ignore only if you don't want uploads tracked)
-media/
+# Production builds
+dist/
+build/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea/
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# Environment variables
+.env
