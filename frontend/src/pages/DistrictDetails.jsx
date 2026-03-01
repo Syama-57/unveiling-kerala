@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion"; // Add this
+import { motion } from "framer-motion";
 import StoryCard from "../components/StoryCard";
 import mythsData from "../data/mythsData";
 import "./DistrictDetails.css";
@@ -30,6 +30,8 @@ export default function DistrictDetails() {
               district: s.district,
               img: s.image ? `http://127.0.0.1:8000${s.image}` : null,
               submittedByUser: true,
+              latitude: s.latitude, // Added coordinate support
+              longitude: s.longitude // Added coordinate support
             }))
           : [];
 
@@ -49,42 +51,44 @@ export default function DistrictDetails() {
 
   return (
     <>
-     <Navbar/>
-    <div className="district-details-page">
-      {/* Background Parallax Layer */}
-      <div className="mystic-overlay"></div>
+      <Navbar/>
+      <div className="district-details-page">
+        <div className="mystic-overlay"></div>
 
-      <motion.h1 
-        initial={{ opacity: 0, letterSpacing: "10px" }}
-        animate={{ opacity: 1, letterSpacing: "4px" }}
-        transition={{ duration: 1.5 }}
-        className="district-heading"
-      >
-        {district} Stories
-      </motion.h1>
+        <motion.h1 
+          initial={{ opacity: 0, letterSpacing: "10px" }}
+          animate={{ opacity: 1, letterSpacing: "4px" }}
+          transition={{ duration: 1.5 }}
+          className="district-heading"
+        >
+          {district} Stories
+        </motion.h1>
 
-      {stories.length === 0 ? (
-        <p className="no-stories">The stories are hidden in the shadows...</p>
-      ) : (
-        <div className="stories-list">
-          {stories.map((story, index) => (
-            <motion.div
-              key={story.slug}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              <StoryCard
-                story={story}
-                reverse={index % 2 !== 0}
-                onReadMore={() => navigate(`/story/${story.slug}`)}
-              />
-            </motion.div>
-          ))}
-        </div>
-      )}
-    </div>
-  </>  
-);
+
+
+        {stories.length === 0 ? (
+          <p className="no-stories">The stories are hidden in the shadows...</p>
+        ) : (
+          <div className="stories-list">
+            {stories.map((story, index) => (
+              <motion.div
+                key={story.slug}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                <StoryCard
+                  story={story}
+                  reverse={index % 2 !== 0}
+                  onReadMore={() => navigate(`/story/${story.slug}`)}
+                />
+
+              </motion.div>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
+  );
 }

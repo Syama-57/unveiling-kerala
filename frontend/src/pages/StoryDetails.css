@@ -113,3 +113,53 @@
   cursor: pointer;
   margin-top: 20px;
 }
+/* StoryDetails.css */
+
+.bookmark-btn-floating {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: white; /* Default color */
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.5rem;
+}
+
+/* This is the part that makes it turn red */
+.bookmark-btn-floating.active {
+  color: #ff4d4d !important; /* Bright Red */
+  border-color: #ff4d4d !important;
+  background: rgba(255, 77, 77, 0.1);
+  box-shadow: 0 0 15px rgba(255, 77, 77, 0.4);
+  transform: scale(1.1);
+}
+
+.audio-narrator-btn {
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid #d4af37;
+  color: #d4af37;
+  padding: 8px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: 'Cinzel', serif;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+}
+
+.audio-narrator-btn:hover {
+  background: #d4af37;
+  color: black;
+}
+
+.audio-narrator-btn.speaking {
+  background: #d4af37;
+  color: black;
+  animation: pulse-gold 2s infinite;
+}
+
+@keyframes pulse-gold {
+  0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+}

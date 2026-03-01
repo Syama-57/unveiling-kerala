@@ -17,7 +17,6 @@ import DistrictDetails from "./pages/DistrictDetails";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import UserDashboard from "./pages/UserDashboard";
 import EditStory from "./pages/EditStory";
-
 export default function App() {
   const [showLanding, setShowLanding] = useState(true);
 
@@ -35,13 +34,13 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/dashboard" element={<UserDashboard />} />
         <Route path="/edit/:id" element={<EditStory />} />
-        {/* ✅ Myths page */}
+             {/* Myths page */}
         <Route path="/myth" element={<Myths />} />
 
-        {/* ✅ Story details */}
+        {/*  Story details */}
         <Route path="/story/:slug" element={<StoryDetails />} />
 
-        {/* ✅ Protected submit */}
+        {/*  Protected submit */}
         <Route
           path="/submit"
           element={
@@ -49,8 +48,7 @@ export default function App() {
               <Submit />
             </ProtectedRoute>
           }
-          
-        />
+                />
       </Routes>
     </>
   );

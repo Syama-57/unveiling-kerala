@@ -12,6 +12,7 @@ import explore1 from "../assets/explore1.jpg";
 import explore2 from "../assets/explore2.jpg";
 import explore3 from "../assets/explore3.jpg";
 
+
 export default function Home() {
   useEffect(() => {
     // 🔥 Carousel auto-run
@@ -25,6 +26,8 @@ export default function Home() {
       });
     }
   }, []);
+
+  
 
   return (
     <div className="home-container">

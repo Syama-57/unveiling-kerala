@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import Story
 
-
 @admin.register(Story)
 class StoryAdmin(admin.ModelAdmin):
     list_display = (
@@ -11,6 +10,17 @@ class StoryAdmin(admin.ModelAdmin):
         "source",
         "created_at",
     )
+    
     list_filter = ("district", "category", "source")
     search_fields = ("title", "short_description")
     prepopulated_fields = {"slug": ("title",)}
+    
+    class Media:
+        # These load the Map library directly from the web
+        css = {
+            'all': ('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',)
+        }
+        js = (
+            'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+            'admin/js/map_picker.js', # This is our custom logic
+        )

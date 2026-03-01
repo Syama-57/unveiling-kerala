@@ -1,190 +1,74 @@
 Unveiling Kerala — Revealing the Unknown
 
-A full-stack web application focused on the myths, legends, folklore, and hidden stories of Kerala.
-The platform allows users to explore cultural stories, while authenticated users can submit, manage, and control their own content through a personal dashboard.
-All content moderation is handled through the Django Admin Panel.
+A full-stack web application dedicated to the myths, legends, and forgotten folklore of Kerala. The platform provides an immersive storytelling experience where users can explore "Sacred Geography" through interactive maps, listen to narrations, and curate their own library of legends.
 
 Tech Stack
 Frontend
 
-React (Vite)
-
-React Router DOM
-
-Axios (API communication)
-
-CSS (custom styling)
-
-Framer Motion (page transitions & animations)
-
-Backend
-
-Django
-
-Django REST Framework
-
-JWT Authentication (Login & Signup)
-
-Django Admin Panel
-
-Key Characteristics
-
-✅ Full-stack web application
-
-✅ JWT-based authentication
-
-✅ Axios-based API communication
-
-✅ Slug-based routing
-
-✅ User-owned content management
-
-✅ Admin-moderated publishing workflow
-
-Features
-Public Access
-
-Browse myths, legends, folklore, and district-based stories
-
-Slug-based story detail pages
-
-Dark, immersive folklore-themed UI
-
-Authentication
-
-User Signup & Login
-
-JWT tokens stored in localStorage
-
-Axios automatically attaches tokens for protected requests
-
-Protected routes with automatic redirect on unauthorized access
-
-Stories & Content
-
-Short descriptions loaded from frontend data
-
-Full story content fetched from backend using Axios
-
-Image support for stories
-
-SEO-friendly slug URLs
-
-User Dashboard
-
-Each user has a personal dashboard
-
-Users can:
-
-View their own submitted stories
-
-Edit their own stories
-
-Delete their own stories
-
-Users cannot access or modify other users’ content
-
-All access control enforced by the backend
-
-Story Submission
-
-Only authenticated users can submit stories
-
-Submitted stories:
-
-Are marked as pending approval
-
-Become publicly visible only after admin approval
-
-Secure form validation on frontend and backend
-
-Admin Management
-
-Admin controls everything via Django Admin Panel
-
-Admin can:
-
-Approve or reject submitted stories
-
-Manage users
-
-Edit or delete any story
-
-No direct database manipulation from the frontend
-
-Project Structure
+ React(Vite): Component-based UI development.
+ Framer Motion: Powering the "Book-Style" scroll animations and transitions.
+ Leaflet & React-Leaflet: Interactive map rendering for legendary sites.
+ Web Speech API: Integrated audio narration for accessibility and immersion.
+ Axios: Centralized API communication with JWT interceptors.
+ 
+ Backend
+ 
+ Django & Django REST Framework: Robust API development.
+ JWT Authentication (SimpleJWT): Secure user sessions and protected routes.
+ Django Admin Panel: Streamlined content moderation and story approval.
+ Relational Database: Optimized for slug-based lookups and user relationships.
+ 
+ 🌟 Core Advanced Features📍
+ Interactive Myth MapsEvery legend is pinned to its real-world location in Kerala.
+ Spatial Storytelling: Using Leaflet, users can view stories mapped across the 14 districts.
+ Custom Markers: Visualizing the "Sacred Geography" behind ancient myths.
+ 
+ 🔊 Audio Narrator (Text-to-Speech)Experience folklore through sound.
+ Immersive Listening: A built-in audio narrator reads the full story to the user.
+ Playback Control: Users can toggle the narrator on or off directly from the story interface.
+ 
+ ❤️ User Bookmark SystemBuild a personal archive of Kerala’s mysteries.
+ Favorites Library: Authenticated users can "heart" stories to save them to their dashboard.
+ Persistent Storage: Bookmarks are saved to the backend database, ensuring they stay synced across devices.
+ 
+ Features
+ Public AccessDistrict-Based Exploration: Filter stories by Kerala's districts.
+ Immersive UI: A dark, folklore-themed interface designed for focused reading.
+ Slug-Based SEO: Clean URLs like /stories/mannarasala-temple for better sharing and search ranking.
+ Authentication & SecurityJWT Workflow: Secure login and signup with tokens stored in localStorage.
+ Protected Submissions: Only registered users can contribute to the archive.
+ Owner-Only Permissions: Users can only edit or delete the stories they created.
+ 
+ Content Moderation
+ Admin Approval System: User-submitted stories remain "Pending" until verified by an admin.
+ CRUD Operations: Full Create, Read, Update, and Delete capabilities for authorized content owners.
+ 
+ Project Structure
+ 
 MyProject/
 │
-├── unveiling-kerala/                 # React Frontend
+├── frontend/                # React Frontend
 │   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── data/
-│   │   ├── assets/
-│   │   ├── api/axios.js
+│   │   ├── components/              # Navbar, MythMap, StoryControls
+│   │   ├── pages/                   # StoryDetails, Dashboard, Archive
+│   │   ├── data/                    # mythsData.js (Local Reference)
 │   │   ├── App.jsx
 │   │   └── main.jsx
-│   └── index.html
 │
-├── unveiling-kerala-backend/          # Django Backend
+├── backend/         # Django Backend
 │   ├── manage.py
-│   ├── unveiling_kerala/
-│   └── destinations/
+│   ├── unveiling_kerala/            # Project Core & Settings
+│   └── destinations/                # Story, User, & Bookmark Models/Views
 │
 └── README.md
 
-API Communication (Axios)
+Endpoint,Method,Purpose
 
-Axios is used for all backend communication
-
-Centralized Axios instance:
-
-Base URL configured
-
-JWT token automatically attached
-
-Example endpoints:
-
-GET /api/stories/
-
-GET /api/stories/<slug>/
-
-POST /api/submit/
-
-GET /api/my-stories/
-
-PUT /api/stories-manage/<id>/
-
-DELETE /api/stories-manage/<id>/
-
-Slug-Based Routing
-
-Stories are accessed using readable slugs instead of numeric IDs:
-
-/stories/mannarasala-temple
-
-
-This improves:
-
-SEO
-
-Readability
-
-Maintainability
-
-Purpose of the Project
-
-Build a production-style full-stack web application
-
-Implement real authentication and authorization flows
-
-Design a user-owned content system
-
-Preserve and present Kerala’s cultural stories through modern web technologies
+/api/stories/,GET,List all approved folklore
+/api/stories/<slug>/,GET,Detailed view of a specific legend
+/api/bookmark/<id>/,POST,Add/Remove a story from user favorites
+/api/my-stories/,GET,List stories submitted by the logged-in user
 
 Author
-
-Syama M
-Full-Stack Developer
-
-Unveiling Kerala is an exploration of stories that live beyond maps — whispered through hills, temples, forests, and forgotten paths.
+Syama M Full-Stack Developer
+"Unveiling Kerala is an exploration of stories that live beyond maps — whispered through hills, temples, forests, and forgotten paths."

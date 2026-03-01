@@ -8,20 +8,13 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import Story
 from .serializers import UserSerializer, StorySerializer
-
-
-# ----------------------
-# SIGNUP
-# ----------------------
+from .models import Story, Bookmark # Add Bookmark here
 class SignupView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
 
 
-# ----------------------
-# LOGIN
-# ----------------------
 @api_view(["POST"])
 @permission_classes([AllowAny])
 def login_view(request):
@@ -40,10 +33,6 @@ def login_view(request):
         "username": user.username,
     })
 
-
-# ----------------------
-# ALL STORIES (PUBLIC)
-# ----------------------
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def get_all_stories(request):
@@ -51,10 +40,6 @@ def get_all_stories(request):
     serializer = StorySerializer(stories, many=True)
     return Response(serializer.data)
 
-
-# ----------------------
-# STORY DETAIL (SLUG)
-# ----------------------
 class StoryDetailBySlugView(generics.RetrieveAPIView):
     queryset = Story.objects.filter(is_approved=True)
     serializer_class = StorySerializer
@@ -62,9 +47,6 @@ class StoryDetailBySlugView(generics.RetrieveAPIView):
     lookup_field = "slug"
 
 
-# ----------------------
-# SUBMIT STORY (AUTH)
-# ----------------------
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def submit_story(request):
@@ -80,9 +62,7 @@ def submit_story(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# ----------------------
-# USER STORIES
-# ----------------------
+
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def my_stories(request):
@@ -90,10 +70,6 @@ def my_stories(request):
     serializer = StorySerializer(stories, many=True)
     return Response(serializer.data)
 
-
-# ----------------------
-# UPDATE / DELETE STORY
-# ----------------------
 @api_view(["GET", "PUT", "DELETE"])
 @permission_classes([IsAuthenticated])
 def manage_story(request, pk):
@@ -114,3 +90,41 @@ def manage_story(request, pk):
 
     story.delete()
     return Response({"message": "Deleted successfully"}, status=204)
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def map_legends_view(request):
+    # This specifically grabs stories for the map
+    category = request.query_params.get('category', None)
+    stories = Story.objects.filter(is_approved=True)
+    
+    if category:
+        stories = stories.filter(category=category)
+        
+    serializer = StorySerializer(stories, many=True)
+    return Response(serializer.data)
+@api_view(["GET", "POST"])
+@permission_classes([IsAuthenticated])
+def toggle_bookmark(request, story_id):
+    try:
+        story = Story.objects.get(id=story_id)
+        if request.method == "GET":
+            is_saved = Bookmark.objects.filter(user=request.user, story=story).exists()
+            return Response({"bookmarked": is_saved})
+            
+        # POST logic remains the same
+        bookmark, created = Bookmark.objects.get_or_create(user=request.user, story=story)
+        if not created:
+            bookmark.delete()
+            return Response({"bookmarked": False})
+        return Response({"bookmarked": True})
+    except Story.DoesNotExist:
+        return Response({"error": "Story not found"}, status=404)
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_my_bookmarks(request):
+    bookmarks = Bookmark.objects.filter(user=request.user)
+    # Extract the stories from the bookmarks
+    stories = [b.story for b in bookmarks]
+    serializer = StorySerializer(stories, many=True)
+    return Response(serializer.data)

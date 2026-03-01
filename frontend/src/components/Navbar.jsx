@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Navbar.css";
+import { useTranslation } from 'react-i18next';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -9,9 +10,10 @@ export default function Navbar() {
 
   const isLoggedIn = !!localStorage.getItem("accessToken");
 
-  // Determine if we should show a back button instead of the logo
-  // (Optional: useful for mobile or deep detail pages)
+ 
   const showBack = location.pathname.includes("/stories/") || location.pathname.includes("/story/");
+
+  
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -45,11 +47,12 @@ export default function Navbar() {
           <Link to="/myth" className={location.pathname === "/myth" ? "active" : ""}>Myths</Link>
           <Link to="/about" className={location.pathname === "/about" ? "active" : ""}>About</Link>
           <Link to="/dashboard">My Stories</Link>
+          <Link to="/submit">Submit</Link>
+              
           {!isLoggedIn ? (
             <Link to="/login" className="nav-login-btn">Login</Link>
           ) : (
             <>
-              <Link to="/submit">Submit</Link>
               <button className="logout-btn" onClick={handleLogout} title="Logout">
                 Logout
               </button>

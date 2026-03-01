@@ -1,0 +1,53 @@
+.explore-map-page {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    background: #000;
+}
+/* Update these specific classes in your ExploreMap.css */
+
+.map-controls {
+    position: absolute;
+    top: 120px;            /* Give it some space from the navbar */
+    left: 20px;           /* Move it to the side so it doesn't block the center */
+    z-index: 1000;        /* Keep it above the map */
+    display: flex;
+    flex-direction: column; /* Stack them for a cleaner look */
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #d4af37;
+    width: 300px;         /* Give it a fixed width so it doesn't span the whole screen */
+    pointer-events: auto; /* Ensure clicks work here... */
+}
+
+.full-screen-map {
+    height: calc(100vh - 80px);
+    width: 100%;
+    position: relative;
+    z-index: 1;           /* Map stays in the back */
+}
+
+/* Ensure the popup itself has a high z-index to stay above everything */
+.leaflet-popup {
+    z-index: 2000 !important;
+}
+.map-search, .map-filter {
+    background: transparent;
+    border: 1px solid #444;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 20px;
+    outline: none;
+}
+
+.map-search:focus { border-color: #d4af37; }
+
+.legend-count {
+    color: #d4af37;
+    font-size: 12px;
+    align-self: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}

@@ -1,40 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import "./SubmitContent.css";
+import "./SubmitContent.css"; // Ensure your CSS handles the new tab styling
 
 export default function UserDashboard() {
   const [stories, setStories] = useState([]);
+  const [bookmarks, setBookmarks] = useState([]);
+  const [activeTab, setActiveTab] = useState("my-stories"); // Toggle state
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchMyStories = async () => {
+    const fetchDashboardData = async () => {
       const token = localStorage.getItem("accessToken");
-      
       if (!token) {
         navigate("/login");
         return;
       }
 
+      setLoading(true);
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/my-stories/", {
-          headers: { 
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-          },
+        // Fetch My Stories
+        const myStoriesRes = await fetch("http://127.0.0.1:8000/api/my-stories/", {
+          headers: { "Authorization": `Bearer ${token}` },
         });
 
-        if (res.status === 401) {
-          localStorage.removeItem("accessToken"); // Clear invalid token
-          navigate("/login");
-          return;
-        }
+        // Fetch Bookmarked Stories
+        const bookmarksRes = await fetch("http://127.0.0.1:8000/api/my-bookmarks/", {
+          headers: { "Authorization": `Bearer ${token}` },
+        });
 
-        if (res.ok) {
-          const data = await res.json();
-          setStories(data);
+        if (myStoriesRes.ok && bookmarksRes.ok) {
+          const myData = await myStoriesRes.json();
+          const bookmarkData = await bookmarksRes.json();
+          setStories(myData);
+          setBookmarks(bookmarkData);
         } else {
           setError("Failed to reach the archives.");
         }
@@ -45,22 +46,18 @@ export default function UserDashboard() {
       }
     };
 
-    fetchMyStories();
+    fetchDashboardData();
   }, [navigate]);
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this legend?")) return;
-    
     const token = localStorage.getItem("accessToken");
     try {
       const res = await fetch(`http://127.0.0.1:8000/api/stories-manage/${id}/`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
-
-      if (res.ok) {
-        setStories(prev => prev.filter(s => s.id !== id));
-      }
+      if (res.ok) setStories(prev => prev.filter(s => s.id !== id));
     } catch (err) {
       alert("Could not delete the story.");
     }
@@ -71,37 +68,63 @@ export default function UserDashboard() {
       <Navbar />
       <div className="submit-container">
         <div className="submit-glass-card">
-          <h2 className="mystic-title">My Archived Legends</h2>
+          <h2 className="mystic-title">Journal of Chronicles</h2>
           
+          {/* --- TAB NAVIGATION --- */}
+          <div className="dashboard-tabs">
+            <button 
+              className={activeTab === "my-stories" ? "tab-btn active" : "tab-btn"}
+              onClick={() => setActiveTab("my-stories")}
+            >
+              My Contributions
+            </button>
+            <button 
+              className={activeTab === "bookmarks" ? "tab-btn active" : "tab-btn"}
+              onClick={() => setActiveTab("bookmarks")}
+            >
+              Saved Legends
+            </button>
+          </div>
+
           {loading ? (
             <p className="mystic-subtitle text-center">Consulting the scrolls...</p>
           ) : (
             <div className="dashboard-grid">
-              {stories.length === 0 ? (
-                <p className="mystic-subtitle text-center">No stories found in your archives.</p>
+              {activeTab === "my-stories" ? (
+                // Render User's Own Stories
+                stories.length === 0 ? (
+                  <p className="mystic-subtitle text-center">Your ink has not yet met the parchment.</p>
+                ) : (
+                  stories.map((story) => (
+                    <div key={story.id} className="story-item-card">
+                      <div className="story-info">
+                        <h4>{story.title}</h4>
+                        <span className="category-badge">{story.category}</span>
+                      </div>
+                      <div className="dashboard-actions">
+                        <button onClick={() => navigate(`/edit/${story.id}`)} className="btn-edit-small">Edit</button>
+                        <button onClick={() => handleDelete(story.id)} className="btn-delete-small">Delete</button>
+                      </div>
+                    </div>
+                  ))
+                )
               ) : (
-                stories.map((story) => (
-                  <div key={story.id} className="story-item-card">
-                    <div className="story-info">
-                      <h4>{story.title}</h4>
-                      <span className="category-badge">{story.category}</span>
+                // Render Bookmarked Stories
+                bookmarks.length === 0 ? (
+                  <p className="mystic-subtitle text-center">No legends saved in your personal library.</p>
+                ) : (
+                  bookmarks.map((story) => (
+                    <div key={story.id} className="story-item-card bookmark-card">
+                      <div className="story-info">
+                        <h4>{story.title}</h4>
+                        <p className="district-text">{story.district}</p>
+                      </div>
+                      <div className="dashboard-actions">
+                        <button onClick={() => navigate(`/story/${story.slug}`)} className="btn-view-small">Read</button>
+                      </div>
                     </div>
-                    <div className="dashboard-actions">
-                      <button 
-                        onClick={() => navigate(`/edit/${story.id}`)} 
-                        className="btn-edit-small"
-                      >
-                        Edit
-                      </button>
-                      <button 
-                        onClick={() => handleDelete(story.id)} 
-                        className="btn-delete-small"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                ))
+                  ))
+                )
               )}
             </div>
           )}

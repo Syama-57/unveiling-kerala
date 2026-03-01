@@ -1,4 +1,4 @@
-/* BACKGROUND SETUP */
+
 .auth-page {
   width: 100vw;
   height: 100vh;
@@ -18,7 +18,7 @@
   pointer-events: none;
 }
 
-/* THE CARD */
+
 .auth-card-mystic {
   background: rgba(10, 10, 10, 0.75);
   backdrop-filter: blur(15px);
@@ -50,7 +50,7 @@
   margin-bottom: 2rem;
 }
 
-/* FORM STYLING */
+
 .auth-form {
   display: flex;
   flex-direction: column;
@@ -73,7 +73,7 @@
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* BUTTONS */
+
 .auth-main-btn {
   background: #c5a059;
   color: #000;
@@ -93,7 +93,7 @@
   box-shadow: 0 0 15px rgba(255,255,255,0.2);
 }
 
-/* TOGGLE LINKS */
+
 .auth-toggle {
   margin-top: 1.5rem;
   font-size: 0.9rem;
@@ -110,7 +110,7 @@
   text-decoration: underline;
 }
 
-/* SYSTEM MESSAGES */
+
 .auth-error-msg {
   color: #ff6b6b;
   font-size: 0.85rem;

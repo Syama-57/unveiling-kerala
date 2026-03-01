@@ -2,12 +2,15 @@ import React from "react";
 import "./About.css";
 import { useNavigate } from "react-router-dom";
 import bgImg from "../assets/kerala-hero.jpg";
-
+import Navbar from "../components/Navbar";
 export default function About() {
   const navigate = useNavigate();
 
   return (
-    // 'vh-100' and 'container-fluid' are Bootstrap classes
+    <>
+    <Navbar/>
+    
+
     <div className="about-wrapper container-fluid vh-100 d-flex align-items-center justify-content-center" style={{ backgroundImage: `url(${bgImg})` }}>
       
       {/* Custom glass card with Bootstrap padding and text alignment */}
@@ -27,5 +30,6 @@ export default function About() {
         </button>
       </div>
     </div>
+  </>
   );
 }

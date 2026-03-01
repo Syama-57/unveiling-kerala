@@ -1,4 +1,5 @@
 from django.urls import path
+from . import views
 from .views import (
     SignupView,
     login_view,
@@ -8,6 +9,7 @@ from .views import (
     my_stories,
     manage_story,
 )
+
 
 urlpatterns = [
     path("signup/", SignupView.as_view()),
@@ -19,4 +21,9 @@ urlpatterns = [
     path("my-stories/", my_stories),
     path("stories-manage/<int:pk>/", manage_story),
     path("submit/", submit_story),
+    path('map-legends/', views.map_legends_view),
+    
+    # REMOVED 'api/' prefix here to match your fetch calls
+    path('bookmark/<int:story_id>/', views.toggle_bookmark, name='toggle-bookmark'),
+    path('my-bookmarks/', views.get_my_bookmarks, name='my-bookmarks'),
 ]
