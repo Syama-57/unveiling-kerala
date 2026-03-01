@@ -69,20 +69,35 @@ Frontend
  
 MyProject/
 │
+
 ├── frontend/                # React Frontend
+
 │   ├── src/
+
 │   │   ├── components/              # Navbar, MythMap, StoryControls
+
 │   │   ├── pages/                   # StoryDetails, Dashboard, Archive
+
 │   │   ├── data/                    # mythsData.js (Local Reference)
+
 │   │   ├── App.jsx
+
 │   │   └── main.jsx
+
 │
+
 ├── backend/         # Django Backend
+
 │   ├── manage.py
+
 │   ├── unveiling_kerala/            # Project Core & Settings
+
 │   └── destinations/                # Story, User, & Bookmark Models/Views
+
 │
+
 └── README.md
+
 
 Endpoint,Method,Purpose
 
@@ -95,5 +110,7 @@ Endpoint,Method,Purpose
 /api/my-stories/,GET,List stories submitted by the logged-in user
 
 Author
+
 Syama M Full-Stack Developer
+
 "Unveiling Kerala is an exploration of stories that live beyond maps — whispered through hills, temples, forests, and forgotten paths."
