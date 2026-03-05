@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 from .views import (
     SignupView,
@@ -9,7 +11,6 @@ from .views import (
     my_stories,
     manage_story,
 )
-
 
 urlpatterns = [
     path("signup/", SignupView.as_view()),
@@ -23,7 +24,10 @@ urlpatterns = [
     path("submit/", submit_story),
     path('map-legends/', views.map_legends_view),
     
-    # REMOVED 'api/' prefix here to match your fetch calls
     path('bookmark/<int:story_id>/', views.toggle_bookmark, name='toggle-bookmark'),
     path('my-bookmarks/', views.get_my_bookmarks, name='my-bookmarks'),
 ]
+
+# This is CRUCIAL for viewing images locally and on Render (with WhiteNoise)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
