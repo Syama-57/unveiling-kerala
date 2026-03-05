@@ -24,6 +24,7 @@ urlpatterns = [
     path('', RedirectView.as_view(url='http://localhost:3000/')),  # Redirect root to React
     path('admin/', admin.site.urls),
     path('api/', include('destinations.urls')),  # API routes
+    path('favicon.ico', RedirectView.as_view(url='/static/favicon.ico')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
