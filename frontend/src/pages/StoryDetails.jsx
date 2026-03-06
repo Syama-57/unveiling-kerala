@@ -27,7 +27,7 @@ export default function StoryDetails() {
     const fetchStory = async () => {
       const token = localStorage.getItem("accessToken");
       try {
-        const res = await axios.get(`http://127.0.0.1:8000/api/stories/${slug}/`);
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}stories/${slug}/`);
         
         // Find local data for images/slugs
         const local = mythsData
@@ -38,7 +38,7 @@ export default function StoryDetails() {
 
         // Optional: Check bookmark status on load
         if (token && res.data.id) {
-           const statusRes = await fetch(`http://127.0.0.1:8000/api/bookmark/${res.data.id}/`, {
+           const statusRes = await fetch(`${import.meta.env.VITE_API_URL}bookmark/${res.data.id}/`, {
              headers: { "Authorization": `Bearer ${token}` }
            });
            const statusData = await statusRes.json();
@@ -64,7 +64,7 @@ export default function StoryDetails() {
     if (!token) { navigate("/login"); return; }
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/bookmark/${story.id}/`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}bookmark/${story.id}/`, {
         method: "POST",
         headers: { 
           "Authorization": `Bearer ${token}`, 

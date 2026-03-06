@@ -11,7 +11,7 @@ export default function ExploreMap() {
 
     useEffect(() => {
         // Fetch stories from backend
-        axios.get("http://127.0.0.1:8000/api/map-legends/").then(res => {
+        axios.get(`${import.meta.env.VITE_API_URL}map-legends/`).then(res => {
             const data = res.data;
             setLegends(data);
             

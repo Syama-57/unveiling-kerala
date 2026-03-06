@@ -19,8 +19,8 @@ export default function DistrictDetails() {
       }))
     );
 
-    fetch("http://127.0.0.1:8000/api/stories/")
-      .then(res => res.json())
+  fetch(`${import.meta.env.VITE_API_URL}stories/`)
+    .then(res => res.json())
       .then(data => {
         const backendStories = Array.isArray(data)
           ? data.map(s => ({
@@ -28,7 +28,7 @@ export default function DistrictDetails() {
               title: s.title,
               short: s.short || s.short_description,
               district: s.district,
-              img: s.image ? `http://127.0.0.1:8000${s.image}` : null,
+              img: s.image ? s.image : null,
               submittedByUser: true,
               latitude: s.latitude, // Added coordinate support
               longitude: s.longitude // Added coordinate support
