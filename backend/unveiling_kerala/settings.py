@@ -66,10 +66,15 @@ WSGI_APPLICATION = 'unveiling_kerala.wsgi.application'
 # Database
 # This automatically uses Render's Postgres URL or local SQLite
 DATABASES = {
-    'default': dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600
-    )
+   'default': {
+         'ENGINE': 'django.db.backends.mysql',
+        'NAME':  'oneteam',
+        'USER': 'root',
+        'PASSWORD':'subha567',
+        'HOST':'localhost',
+        'PORT': '3306'
+    
+}
 }
 
 # Internationalization
@@ -100,6 +105,7 @@ REST_FRAMEWORK = {
 
 # CORS - Replace with your actual Vercel URL
 CORS_ALLOWED_ORIGINS = [
-    "https://frontend.vercel.app",
-    "http://localhost:5173", # For local React development
+    "http://localhost:5173",
+    "https://unveiling-kerala.vercel.app", # Your main Vercel link
+    "https://unveiling-kerala-qeb7rfnlp-syama-57s-projects.vercel.app", # The specific preview link from your error
 ]
