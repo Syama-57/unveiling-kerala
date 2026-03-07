@@ -1,20 +1,5 @@
-import mannarasala from "../assets/myth/mannarasala.jpg";
-import janardhana from "../assets/myth/janardhana.jpg";
-import chottanikkara from "../assets/myth/chottanikkara.jpg";
-import lokanarkavu from "../assets/myth/lokanarkavu.jpg";
-import pambummekkattu from "../assets/myth/pambummekkattu.jpg";
-import agasthyakoodam from "../assets/myth/agasthyakoodam.jpg";
-import banasura from "../assets/myth/banasura.jpg";
-import seetharkundu from "../assets/myth/seetharkundu.jpg";
-import perunthenaruvi from "../assets/myth/perunthenaruvi.jpg";
-import kollamghost from "../assets/myth/kollam-ghost.jpg";
-import hymavathi from "../assets/myth/hymavathi.jpg";
-import adiyan from "../assets/myth/adiyan.jpg";
-import muthuvan from "../assets/myth/muthuvan.jpg";
-import paniya from "../assets/myth/paniya.jpg";
-import karinthandan from "../assets/myth/karinthandan.jpg";
-import irumbanam from "../assets/myth/irumbanam.jpg";
-import muthikulam from "../assets/myth/muthikulam.jpg";
+// NOTE: All imports have been removed. 
+// Ensure your images are now located in: public/myth/
 
 const mythsData = [
   {
@@ -26,7 +11,7 @@ const mythsData = [
         title: "Mannarasala Temple",
         category: "temple",
         district: "alappuzha",
-        img: mannarasala,
+        img: "/myth/mannarasala.jpg",
         short: "Ancient serpent grove where devotees seek blessings.",
       },
       {
@@ -34,7 +19,7 @@ const mythsData = [
         title: "Janardhana Swamy Temple",
         category: "temple",
         district: "kollam",
-        img: janardhana,
+        img: "/myth/janardhana.jpg",
         short: "Temple with stories of miracles and devotion.",
       },
       {
@@ -42,7 +27,7 @@ const mythsData = [
         title: "Chottanikkara Temple",
         category: "temple",
         district: "ernakulam",
-        img: chottanikkara,
+        img: "/myth/chottanikkara.jpg",
         short: "Renowned for rituals believed to cure possession.",
       },
       {
@@ -50,7 +35,7 @@ const mythsData = [
         title: "Lokanarkavu Temple",
         category: "temple",
         district: "malappuram",
-        img: lokanarkavu,
+        img: "/myth/lokanarkavu.jpg",
         short: "Linked to North Malabar ballads and warriors of legend.",
       },
       {
@@ -58,12 +43,11 @@ const mythsData = [
         title: "Pambummekkattu Mana",
         category: "temple",
         district: "thrissur",
-        img: pambummekkattu,
+        img: "/myth/pambummekkattu.jpg",
         short: "Traditional manor tied to serpent-worship.",
       },
     ],
   },
-
   {
     key: "nature",
     title: "Nature & Mountain Legends",
@@ -73,7 +57,7 @@ const mythsData = [
         title: "Agasthyakoodam",
         category: "nature",
         district: "thiruvananthapuram",
-        img: agasthyakoodam,
+        img: "/myth/agasthyakoodam.jpg",
         short: "Sacred peak linked with sage Agasthya.",
       },
       {
@@ -81,7 +65,7 @@ const mythsData = [
         title: "Banasura Hill",
         category: "nature",
         district: "wayanad",
-        img: banasura,
+        img: "/myth/banasura.jpg",
         short: "A mountain spoken of in Asura legends.",
       },
       {
@@ -89,7 +73,7 @@ const mythsData = [
         title: "Seetharkundu",
         category: "nature",
         district: "palakkad",
-        img: seetharkundu,
+        img: "/myth/seetharkundu.jpg",
         short: "Water pools tied to Ramayana traces.",
       },
       {
@@ -97,12 +81,11 @@ const mythsData = [
         title: "Perunthenaruvi",
         category: "nature",
         district: "pathanamthitta",
-        img: perunthenaruvi,
+        img: "/myth/perunthenaruvi.jpg",
         short: "Roaring waterfall with river spirits.",
       },
     ],
   },
-
   {
     key: "ghost",
     title: "Ghosts & Supernatural Myths",
@@ -112,7 +95,7 @@ const mythsData = [
         title: "The Weeping Ghost of Kollam",
         category: "ghost",
         district: "kollam",
-        img: kollamghost,
+        img: "/myth/kollam-ghost.jpg",
         short: "A lamenting spirit near an abandoned pond.",
       },
       {
@@ -120,12 +103,11 @@ const mythsData = [
         title: "Hymavathi's Pond",
         category: "ghost",
         district: "kollam",
-        img: hymavathi,
+        img: "/myth/hymavathi.jpg",
         short: "A moonlit pond tied to tragic love.",
       },
     ],
   },
-
   {
     key: "tribe",
     title: "Tribal Folklore and Legends",
@@ -135,7 +117,7 @@ const mythsData = [
         title: "Adiyan Tribe",
         category: "tribe",
         district: "wayanad",
-        img: adiyan,
+        img: "/myth/adiyan.jpg",
         short: "Oral songs and marshland rites.",
       },
       {
@@ -143,7 +125,7 @@ const mythsData = [
         title: "Muthuvan Tribe",
         category: "tribe",
         district: "idukki",
-        img: muthuvan,
+        img: "/myth/muthuvan.jpg",
         short: "High-range guardians with honey-rituals.",
       },
       {
@@ -151,7 +133,7 @@ const mythsData = [
         title: "Paniya Tribe",
         category: "tribe",
         district: "kasaragod",
-        img: paniya,
+        img: "/myth/paniya.jpg",
         short: "Communal drum rituals and ancestral legends.",
       },
       {
@@ -159,12 +141,11 @@ const mythsData = [
         title: "Legend of Karinthandan",
         category: "tribe",
         district: "wayanad",
-        img: karinthandan,
+        img: "/myth/karinthandan.jpg",
         short: "A forest guardian whose story warns of greed.",
       },
     ],
   },
-
   {
     key: "folklore",
     title: "Local Folklore",
@@ -174,7 +155,7 @@ const mythsData = [
         title: "Irumbanam Village",
         category: "folklore",
         district: "ernakulam",
-        img: irumbanam,
+        img: "/myth/irumbanam.jpg",
         short: "Small-village tales of guardian spirits.",
       },
       {
@@ -182,7 +163,7 @@ const mythsData = [
         title: "Muthikulam Village",
         category: "folklore",
         district: "kottayam",
-        img: muthikulam,
+        img: "/myth/muthikulam.jpg",
         short: "Stories of wells, offerings, and rescue heroes.",
       },
     ],
