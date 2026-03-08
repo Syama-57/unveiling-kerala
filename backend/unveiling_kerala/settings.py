@@ -1,6 +1,7 @@
+import dj_database_url
+
 from pathlib import Path
 import os
-import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -13,8 +14,11 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['https://unveiling-kerala.onrender.com']
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://unveiling-kerala.onrender.com',
+    'https://unveiling-kerala.vercel.app', # Add this!
+    'https://unveiling-kerala-qeb7rfnlp-syama-57s-projects.vercel.app' # Add this!
+]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
@@ -104,3 +108,4 @@ CORS_ALLOWED_ORIGINS = [
     "https://unveiling-kerala.vercel.app", # Your main Vercel link
     "https://unveiling-kerala-qeb7rfnlp-syama-57s-projects.vercel.app", # The specific preview link from your error
 ]
+CORS_ALLOW_CREDENTIALS = True
