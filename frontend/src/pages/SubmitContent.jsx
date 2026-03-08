@@ -39,7 +39,6 @@ export default function SubmitContent() {
   const [description, setDescription] = useState("");
   const [imageFile, setImageFile] = useState(null);
   
-  // Coordinate and Map states
   const [latitude, setLatitude] = useState(10.8505);
   const [longitude, setLongitude] = useState(76.2711);
   const [mapZoom, setMapZoom] = useState(7);
@@ -47,7 +46,9 @@ export default function SubmitContent() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  // Search function to find coordinates based on Title + District
+  // Dynamic API Base URL
+  const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api";
+
   const searchLocation = async (query) => {
     if (!query || query.length < 3) return;
     try {
@@ -60,14 +61,13 @@ export default function SubmitContent() {
       if (data && data.length > 0) {
         setLatitude(parseFloat(data[0].lat));
         setLongitude(parseFloat(data[0].lon));
-        setMapZoom(16); // Close-up view
+        setMapZoom(16);
       }
     } catch (err) {
       console.error("Geocoding error:", err);
     }
   };
 
-  // Manual pin-drop listener
   function LocationMarker() {
     useMapEvents({
       click(e) {
@@ -83,7 +83,8 @@ export default function SubmitContent() {
       const fetchStoryData = async () => {
         const token = localStorage.getItem("accessToken");
         try {
-          const res = await fetch(`http://127.0.0.1:8000/api/stories-manage/${id}/`, {
+          // FIXED: Replaced 127.0.0.1 with API_BASE
+          const res = await fetch(`${API_BASE}/stories-manage/${id}/`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           if (res.ok) {
@@ -105,7 +106,7 @@ export default function SubmitContent() {
       };
       fetchStoryData();
     }
-  }, [id, isEditMode]);
+  }, [id, isEditMode, API_BASE]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -121,9 +122,10 @@ export default function SubmitContent() {
     if (imageFile) formData.append("image", imageFile);
 
     try {
+      // FIXED: Replaced 127.0.0.1 with API_BASE
       const url = isEditMode 
-        ? `http://127.0.0.1:8000/api/stories-manage/${id}/` 
-        : "http://127.0.0.1:8000/api/submit/";
+        ? `${API_BASE}/stories-manage/${id}/` 
+        : `${API_BASE}/submit/`;
       
       const res = await fetch(url, {
         method: isEditMode ? "PUT" : "POST",
@@ -187,7 +189,6 @@ export default function SubmitContent() {
               </select>
             </div>
 
-            {/* --- THE PROFESSIONAL AUTO-MAP --- */}
             <div className="map-picker-container" style={{ margin: "10px 0 20px 0" }}>
               <div style={{ height: "300px", borderRadius: "12px", border: "1px solid #d4af37", overflow: "hidden" }}>
                 <MapContainer center={[latitude, longitude]} zoom={mapZoom} style={{ height: "100%", width: "100%" }}>
