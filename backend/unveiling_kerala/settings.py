@@ -66,15 +66,10 @@ WSGI_APPLICATION = 'unveiling_kerala.wsgi.application'
 # Database
 # This automatically uses Render's Postgres URL or local SQLite
 DATABASES = {
-   'default': {
-         'ENGINE': 'django.db.backends.mysql',
-        'NAME':  'oneteam',
-        'USER': 'root',
-        'PASSWORD':'subha567',
-        'HOST':'localhost',
-        'PORT': '3306'
-    
-}
+   'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3', # Falls back to local sqlite if no URL is found
+        conn_max_age=600
+    )
 }
 
 # Internationalization
