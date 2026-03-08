@@ -11,12 +11,11 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ["id", "username", "password"]
 
     def create(self, validated_data):
-        user = User(username=validated_data["username"])
-        user.set_password(validated_data["password"])
-        user.save()
-        return user
-
-
+        # This handles hashing and saving in one clean step
+        return User.objects.create_user(
+            username=validated_data['username'],
+            password=validated_data['password']
+        )
 class StorySerializer(serializers.ModelSerializer):
     short = serializers.CharField(source="short_description")
     submitted_by_username = serializers.SerializerMethodField()
