@@ -18,9 +18,11 @@ export default function Auth() {
     e.preventDefault();
     setError(null);
 
+    const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api";
+    
     const url = isLogin
-      ? "http://127.0.0.1:8000/api/login/"
-      : "http://127.0.0.1:8000/api/signup/";
+      ? `${API_BASE}/login/`
+      : `${API_BASE}/signup/`;
 
     try {
       const res = await fetch(url, {
@@ -41,7 +43,8 @@ export default function Auth() {
         localStorage.setItem("refreshToken", data.refresh);
         navigate(from, { replace: true });
       } else {
-        const loginRes = await fetch("http://127.0.0.1:8000/api/login/", {
+        // Corrected second login call for automatic signup-to-login
+        const loginRes = await fetch(`${API_BASE}/login/`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username, password }),
@@ -60,7 +63,8 @@ export default function Auth() {
     } catch {
       setError({ message: "Server error. Try again later." });
     }
-  };
+  }; 
+
 
   return (
     <>
