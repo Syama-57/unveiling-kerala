@@ -7,7 +7,7 @@ export default function Districts() {
   const districts = [
     { name: "Thiruvananthapuram", img: "/images/trivandrum/cover.jpg" },
     { name: "Kollam", img: "/images/kollam/cover.jpg" },
-    { name: "Pathanamthitta", img: "/public/images/pathanamthitta/cover.jpg" },
+    { name: "Pathanamthitta", img: "/images/pathanamthitta/cover.jpg" },
     { name: "Alappuzha", img: "/images/alappuzha/cover.jpg" },
     { name: "Kottayam", img: "/images/kottayam/cover.jpg" },
     { name: "Idukki", img: "/images/idukki/cover.jpg" },
