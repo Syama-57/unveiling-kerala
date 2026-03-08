@@ -189,3 +189,97 @@
   .nav-content { padding: 0 2rem; }
   .links a { margin-left: 15px; font-size: 0.8rem; }
 }
+/* ... Keep your existing .navbar, .scrolled, and .nav-content styles ... */
+
+.links a {
+  margin-left: 35px;
+  text-decoration: none;
+  /* Changed from darkolivegreen to a more readable ivory/gold theme */
+  color: rgba(255, 255, 255, 0.7); 
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: 0.4s;
+  position: relative;
+}
+
+/* Ensure the gold line shows up for active and hover */
+.links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -5px;
+  left: 0;
+  background-color: #c49b3a;
+  transition: 0.3s;
+}
+
+.links a:hover::after, 
+.links a.active::after {
+  width: 100%;
+}
+
+.links a:hover, .links a.active {
+  color: #c49b3a;
+}
+
+/* LOGIN BUTTON */
+.nav-login-btn {
+  border: 1px solid rgba(196, 155, 58, 0.5);
+  padding: 8px 20px;
+  border-radius: 2px;
+  margin-left: 35px !important;
+  transition: 0.3s all ease;
+}
+
+.nav-login-btn:hover, .nav-login-btn.active {
+  background: transparent;
+  border-color: #c49b3a;
+  box-shadow: 0 0 10px rgba(196, 155, 58, 0.2);
+}
+
+/* SIGNUP BUTTON - Making it stand out slightly more */
+.nav-signup-btn {
+  background: #c49b3a;
+  color: #000 !important; /* Dark text on gold background */
+  padding: 8px 20px;
+  border-radius: 2px;
+  margin-left: 15px !important;
+  font-weight: 600 !important;
+  border: 1px solid #c49b3a;
+}
+
+.nav-signup-btn:hover {
+  background: #d4af37;
+  box-shadow: 0 0 15px rgba(196, 155, 58, 0.4);
+  transform: translateY(-1px);
+}
+
+.nav-signup-btn::after {
+  display: none; /* Remove the underline for the solid button */
+}
+
+/* LOGOUT BUTTON */
+.logout-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  color: #ff6b6b;
+  padding: 6px 15px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  margin-left: 30px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 107, 107, 0.1);
+  border-color: #ff6b6b;
+  box-shadow: 0 0 10px rgba(255, 107, 107, 0.2);
+}
+
+/* ... Keep your Search and Responsive styles ... */
