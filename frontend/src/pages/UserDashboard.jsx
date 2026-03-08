@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import "./SubmitContent.css"; // Ensure your CSS handles the new tab styling
+import "./SubmitContent.css"; 
 
 export default function UserDashboard() {
   const [stories, setStories] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
-  const [activeTab, setActiveTab] = useState("my-stories"); // Toggle state
+  const [activeTab, setActiveTab] = useState("my-stories"); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  // Dynamic API Base URL
+  const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api";
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -21,13 +24,13 @@ export default function UserDashboard() {
 
       setLoading(true);
       try {
-        // Fetch My Stories
-        const myStoriesRes = await fetch("http://127.0.0.1:8000/api/my-stories/", {
+        // FIXED: Replaced 127.0.0.1 with API_BASE
+        const myStoriesRes = await fetch(`${API_BASE}/my-stories/`, {
           headers: { "Authorization": `Bearer ${token}` },
         });
 
-        // Fetch Bookmarked Stories
-        const bookmarksRes = await fetch("http://127.0.0.1:8000/api/my-bookmarks/", {
+        // FIXED: Replaced 127.0.0.1 with API_BASE
+        const bookmarksRes = await fetch(`${API_BASE}/my-bookmarks/`, {
           headers: { "Authorization": `Bearer ${token}` },
         });
 
@@ -47,13 +50,14 @@ export default function UserDashboard() {
     };
 
     fetchDashboardData();
-  }, [navigate]);
+  }, [navigate, API_BASE]);
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this legend?")) return;
     const token = localStorage.getItem("accessToken");
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/stories-manage/${id}/`, {
+      // FIXED: Replaced 127.0.0.1 with API_BASE
+      const res = await fetch(`${API_BASE}/stories-manage/${id}/`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -70,7 +74,6 @@ export default function UserDashboard() {
         <div className="submit-glass-card">
           <h2 className="mystic-title">Journal of Chronicles</h2>
           
-          {/* --- TAB NAVIGATION --- */}
           <div className="dashboard-tabs">
             <button 
               className={activeTab === "my-stories" ? "tab-btn active" : "tab-btn"}
@@ -91,7 +94,6 @@ export default function UserDashboard() {
           ) : (
             <div className="dashboard-grid">
               {activeTab === "my-stories" ? (
-                // Render User's Own Stories
                 stories.length === 0 ? (
                   <p className="mystic-subtitle text-center">Your ink has not yet met the parchment.</p>
                 ) : (
@@ -109,7 +111,6 @@ export default function UserDashboard() {
                   ))
                 )
               ) : (
-                // Render Bookmarked Stories
                 bookmarks.length === 0 ? (
                   <p className="mystic-subtitle text-center">No legends saved in your personal library.</p>
                 ) : (
