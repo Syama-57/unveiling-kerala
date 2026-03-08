@@ -5,20 +5,20 @@ import Navbar from "../components/Navbar";
 
 export default function Districts() {
   const districts = [
-    { name: "Thiruvananthapuram", img: "/public/images/trivandrum/cover.jpg" },
-    { name: "Kollam", img: "/public/images/kollam/cover.jpg" },
+    { name: "Thiruvananthapuram", img: "/images/trivandrum/cover.jpg" },
+    { name: "Kollam", img: "/images/kollam/cover.jpg" },
     { name: "Pathanamthitta", img: "/public/images/pathanamthitta/cover.jpg" },
-    { name: "Alappuzha", img: "/public/images/alappuzha/cover.jpg" },
-    { name: "Kottayam", img: "/public/images/kottayam/cover.jpg" },
-    { name: "Idukki", img: "/public/images/idukki/cover.jpg" },
-    { name: "Ernakulam", img: "/public/images/eranakulam/cover.jpg" },
-    { name: "Thrissur", img: "/public/images/thrissur/cover.jpg" },
-    { name: "Palakkad", img: "/public/images/palakkad/cover.jpg" },
-    { name: "Malappuram", img: "/public/images/malappuram/cover.jpg" },
-    { name: "Kozhikode", img: "/public/images/kozhikkode/cover.jpg" },
-    { name: "Wayanad", img: "/public/images/wayanad/cover.jpg" },
-    { name: "Kannur", img: "/public/images/kannur/cover.jpg" },
-    { name: "Kasaragod", img: "/public/images/kasaragod/cover.jpg" },
+    { name: "Alappuzha", img: "/images/alappuzha/cover.jpg" },
+    { name: "Kottayam", img: "/images/kottayam/cover.jpg" },
+    { name: "Idukki", img: "/images/idukki/cover.jpg" },
+    { name: "Ernakulam", img: "/images/eranakulam/cover.jpg" },
+    { name: "Thrissur", img: "/images/thrissur/cover.jpg" },
+    { name: "Palakkad", img: "/images/palakkad/cover.jpg" },
+    { name: "Malappuram", img: "/images/malappuram/cover.jpg" },
+    { name: "Kozhikode", img: "/images/kozhikkode/cover.jpg" },
+    { name: "Wayanad", img: "/images/wayanad/cover.jpg" },
+    { name: "Kannur", img: "/images/kannur/cover.jpg" },
+    { name: "Kasaragod", img: "/images/kasaragod/cover.jpg" },
   ];
 
   return (
