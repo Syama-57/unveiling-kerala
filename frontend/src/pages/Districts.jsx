@@ -5,20 +5,20 @@ import Navbar from "../components/Navbar";
 
 export default function Districts() {
   const districts = [
-    { name: "Thiruvananthapuram", img: "/src/assets/images/trivandrum/cover.jpg" },
-    { name: "Kollam", img: "/src/assets/images/kollam/cover.jpg" },
-    { name: "Pathanamthitta", img: "/src/assets/images/pathanamthitta/cover.jpg" },
-    { name: "Alappuzha", img: "/src/assets/images/alappuzha/cover.jpg" },
-    { name: "Kottayam", img: "/src/assets/images/kottayam/cover.jpg" },
-    { name: "Idukki", img: "/src/assets/images/idukki/cover.jpg" },
-    { name: "Ernakulam", img: "/src/assets/images/eranakulam/cover.jpg" },
-    { name: "Thrissur", img: "/src/assets/images/thrissur/cover.jpg" },
-    { name: "Palakkad", img: "/src/assets/images/palakkad/cover.jpg" },
-    { name: "Malappuram", img: "/src/assets/images/malappuram/cover.jpg" },
-    { name: "Kozhikode", img: "/src/assets/images/kozhikkode/cover.jpg" },
-    { name: "Wayanad", img: "/src/assets/images/wayanad/cover.jpg" },
-    { name: "Kannur", img: "/src/assets/images/kannur/cover.jpg" },
-    { name: "Kasaragod", img: "/src/assets/images/kasaragod/cover.jpg" },
+    { name: "Thiruvananthapuram", img: "/public/images/trivandrum/cover.jpg" },
+    { name: "Kollam", img: "/public/images/kollam/cover.jpg" },
+    { name: "Pathanamthitta", img: "/public/images/pathanamthitta/cover.jpg" },
+    { name: "Alappuzha", img: "/public/images/alappuzha/cover.jpg" },
+    { name: "Kottayam", img: "/public/images/kottayam/cover.jpg" },
+    { name: "Idukki", img: "/public/images/idukki/cover.jpg" },
+    { name: "Ernakulam", img: "/public/images/eranakulam/cover.jpg" },
+    { name: "Thrissur", img: "/public/images/thrissur/cover.jpg" },
+    { name: "Palakkad", img: "/public/images/palakkad/cover.jpg" },
+    { name: "Malappuram", img: "/public/images/malappuram/cover.jpg" },
+    { name: "Kozhikode", img: "/public/images/kozhikkode/cover.jpg" },
+    { name: "Wayanad", img: "/public/images/wayanad/cover.jpg" },
+    { name: "Kannur", img: "/public/images/kannur/cover.jpg" },
+    { name: "Kasaragod", img: "/public/images/kasaragod/cover.jpg" },
   ];
 
   return (

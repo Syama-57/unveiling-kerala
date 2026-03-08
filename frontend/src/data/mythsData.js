@@ -53,7 +53,7 @@ const mythsData = [
     title: "Nature & Mountain Legends",
     items: [
       {
-        slug: "agasthyakoodam",
+        slug: "agasthyarkoodam-peak",
         title: "Agasthyakoodam",
         category: "nature",
         district: "thiruvananthapuram",

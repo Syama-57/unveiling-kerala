@@ -1,7 +1,7 @@
 import React from "react";
 import "./About.css";
 import { useNavigate } from "react-router-dom";
-import bgImg from "../assets/kerala-hero.jpg";
+import bgImg from "/public/kerala-hero.jpg";
 import Navbar from "../components/Navbar";
 export default function About() {
   const navigate = useNavigate();

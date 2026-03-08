@@ -13,7 +13,7 @@ export default function Landing({ onFinish }) {
   return (
     <div className="landing-container">
       <video className="landing-video" autoPlay muted loop>
-        <source src="/src/assets/landing/bg.mp4" type="video/mp4" />
+        <source src="/public/landing/bg.mp4" type="video/mp4" />
       </video>
 
       <div className="overlay"></div>
