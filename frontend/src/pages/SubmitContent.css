@@ -217,3 +217,22 @@
   .mystic-row { grid-template-columns: 1fr; }
   .submit-glass-card { padding: 1.5rem; }
 }
+.location-suggestions{
+position:absolute;
+background:#111;
+border:1px solid #d4af37;
+width:100%;
+z-index:1000;
+max-height:200px;
+overflow:auto;
+}
+
+.suggestion-item{
+padding:8px;
+cursor:pointer;
+border-bottom:1px solid #333;
+}
+
+.suggestion-item:hover{
+background:#222;
+}
