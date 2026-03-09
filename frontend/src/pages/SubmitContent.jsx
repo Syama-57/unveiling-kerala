@@ -16,21 +16,17 @@ let DefaultIcon = L.icon({
   iconSize: [25, 41],
   iconAnchor: [12, 41],
 });
-
 L.Marker.prototype.options.icon = DefaultIcon;
 
 function MapViewHandler({ center, zoom }) {
   const map = useMap();
-
   useEffect(() => {
     map.flyTo(center, zoom, { duration: 1.5 });
   }, [center, zoom, map]);
-
   return null;
 }
 
 export default function SubmitContent() {
-
   const { id } = useParams();
   const isEditMode = !!id;
   const navigate = useNavigate();
@@ -46,99 +42,34 @@ export default function SubmitContent() {
   const [longitude, setLongitude] = useState(76.2711);
   const [mapZoom, setMapZoom] = useState(7);
 
-  const [suggestions, setSuggestions] = useState([]);
-
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
   const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api";
 
-  // -----------------------------
-  // SEARCH LOCATION (LOCATE BUTTON)
-  // -----------------------------
-
   const searchLocation = async (query) => {
-
     if (!query || query.length < 3) return;
-
     try {
-
       const searchQuery = `${query}, ${district || ""}, Kerala, India`;
-
-      const url =
-        "https://corsproxy.io/?https://nominatim.openstreetmap.org/search?format=json&q=" +
-        encodeURIComponent(searchQuery) +
-        "&limit=1";
-
-      const res = await fetch(url);
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+          searchQuery
+        )}&limit=1`
+      );
 
       const data = await res.json();
 
       if (data && data.length > 0) {
-
         setLatitude(parseFloat(data[0].lat));
         setLongitude(parseFloat(data[0].lon));
         setMapZoom(16);
-
-      } else {
-
-        setError("Location not found");
-
       }
-
     } catch (err) {
-
       console.error("Geocoding error:", err);
-      setError("Failed to locate place");
-
     }
-
-  };
-
-  // -----------------------------
-  // AUTOCOMPLETE SUGGESTIONS
-  // -----------------------------
-
-  const fetchSuggestions = async (value) => {
-
-    if (value.length < 3) {
-      setSuggestions([]);
-      return;
-    }
-
-    try {
-
-      const url =
-        "https://corsproxy.io/?https://nominatim.openstreetmap.org/search?format=json&q=" +
-        encodeURIComponent(value + ", Kerala, India") +
-        "&limit=5";
-
-      const res = await fetch(url);
-      const data = await res.json();
-
-      setSuggestions(data);
-
-    } catch {
-      setSuggestions([]);
-    }
-
-  };
-
-  const selectSuggestion = (place) => {
-
-    setTitle(place.display_name);
-
-    setLatitude(parseFloat(place.lat));
-    setLongitude(parseFloat(place.lon));
-
-    setMapZoom(16);
-
-    setSuggestions([]);
-
   };
 
   function LocationMarker() {
-
     useMapEvents({
       click(e) {
         setLatitude(e.latlng.lat);
@@ -147,23 +78,14 @@ export default function SubmitContent() {
     });
 
     return <Marker position={[latitude, longitude]} />;
-
   }
 
-  // -----------------------------
-  // LOAD STORY IF EDIT MODE
-  // -----------------------------
-
   useEffect(() => {
-
     if (isEditMode) {
-
       const fetchStoryData = async () => {
-
         const token = localStorage.getItem("accessToken");
 
         try {
-
           const res = await fetch(`${API_BASE}/stories-manage/${id}/`, {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -171,7 +93,6 @@ export default function SubmitContent() {
           });
 
           if (res.ok) {
-
             const data = await res.json();
 
             setTitle(data.title || "");
@@ -181,41 +102,26 @@ export default function SubmitContent() {
             setDescription(data.full_story || "");
 
             if (data.latitude && data.longitude) {
-
               setLatitude(parseFloat(data.latitude));
               setLongitude(parseFloat(data.longitude));
               setMapZoom(15);
-
             }
-
           }
-
         } catch {
-
           setError("Server error while fetching story.");
-
         }
-
       };
 
       fetchStoryData();
-
     }
-
   }, [id, isEditMode, API_BASE]);
 
-  // -----------------------------
-  // SUBMIT STORY
-  // -----------------------------
-
   const handleSubmit = async (e) => {
-
     e.preventDefault();
 
     const token = localStorage.getItem("accessToken");
 
     const formData = new FormData();
-
     formData.append("title", title);
     formData.append("short", shortDesc);
     formData.append("full_story", description);
@@ -229,7 +135,6 @@ export default function SubmitContent() {
     }
 
     try {
-
       const res = await fetch(`${API_BASE}/submit/`, {
         method: "POST",
         headers: {
@@ -239,26 +144,18 @@ export default function SubmitContent() {
       });
 
       const data = await res.json();
-
-      if (res.status === 200 || res.status === 201) {
-
-        setMessage("Legend submitted successfully!");
-        setError("");
-
-        setTimeout(() => navigate("/dashboard"), 2000);
-
-      } else {
-
-        setError(data.detail || "Failed to save.");
-
-      }
+       if (res.status === 200 || res.status === 201) {
+  setMessage("Legend submitted successfully!");
+  setError("");
+  setTimeout(() => navigate("/dashboard"), 2000);
+} else {
+  console.log(data);
+  setError(data.detail || "Failed to save.");
+}
 
     } catch {
-
       setError("Network error.");
-
     }
-
   };
 
   return (
@@ -266,7 +163,6 @@ export default function SubmitContent() {
       <Navbar />
 
       <div className="submit-container">
-
         <div className="submit-glass-card">
 
           <button className="btn-back-mystic" onClick={() => navigate(-1)}>
@@ -279,46 +175,17 @@ export default function SubmitContent() {
 
           <form className="submit-form" onSubmit={handleSubmit}>
 
-            {/* TITLE + LOCATE */}
-
             <div className="mystic-row" style={{ alignItems: "flex-end", gap: "10px" }}>
 
-              <div style={{ flex: 1, position: "relative" }}>
-
+              <div style={{ flex: 1 }}>
                 <input
                   type="text"
                   className="mystic-input"
                   placeholder="Title of the Legend"
                   value={title}
-                  onChange={(e) => {
-                    setTitle(e.target.value);
-                    fetchSuggestions(e.target.value);
-                  }}
+                  onChange={(e) => setTitle(e.target.value)}
                   required
                 />
-
-                {/* AUTOCOMPLETE DROPDOWN */}
-
-                {suggestions.length > 0 && (
-
-                  <div className="location-suggestions">
-
-                    {suggestions.map((s, index) => (
-
-                      <div
-                        key={index}
-                        className="suggestion-item"
-                        onClick={() => selectSuggestion(s)}
-                      >
-                        {s.display_name}
-                      </div>
-
-                    ))}
-
-                  </div>
-
-                )}
-
               </div>
 
               <button
@@ -326,32 +193,31 @@ export default function SubmitContent() {
                 className="submit-btn-gold"
                 style={{
                   height: "50px",
+                  width: "auto",
                   padding: "0 20px",
                   marginBottom: "15px",
                 }}
-                onClick={() => searchLocation(title + " " + district)}
+                onClick={() => searchLocation(title)}
               >
                 Locate
               </button>
-
             </div>
 
-            {/* DISTRICT + CATEGORY */}
-
             <div className="mystic-row">
-
               <select
                 className="mystic-select"
                 value={district}
                 onChange={(e) => setDistrict(e.target.value)}
                 required
               >
-                <option value="" disabled>District</option>
-
+                <option value="" disabled>
+                  District
+                </option>
                 {districts.map((d) => (
-                  <option key={d} value={d}>{d}</option>
+                  <option key={d} value={d}>
+                    {d}
+                  </option>
                 ))}
-
               </select>
 
               <select
@@ -360,37 +226,49 @@ export default function SubmitContent() {
                 onChange={(e) => setCategory(e.target.value)}
                 required
               >
-                <option value="" disabled>Category</option>
+                <option value="" disabled>
+                  Category
+                </option>
                 <option value="ghost">Ghost Story</option>
                 <option value="temple">Temple Legend</option>
                 <option value="tribe">Tribal Story</option>
                 <option value="nature">Nature & Mountain</option>
                 <option value="folklore">Local Folklore</option>
               </select>
-
             </div>
 
-            {/* MAP */}
-
-            <div className="map-picker-container">
-
-              <MapContainer
-                center={[latitude, longitude]}
-                zoom={mapZoom}
-                style={{ height: "300px", width: "100%" }}
+            <div className="map-picker-container" style={{ margin: "10px 0 20px 0" }}>
+              <div
+                style={{
+                  height: "300px",
+                  borderRadius: "12px",
+                  border: "1px solid #d4af37",
+                  overflow: "hidden",
+                }}
               >
+                <MapContainer
+                  center={[latitude, longitude]}
+                  zoom={mapZoom}
+                  style={{ height: "100%", width: "100%" }}
+                >
+                  <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
+                  <LocationMarker />
+                  <MapViewHandler center={[latitude, longitude]} zoom={mapZoom} />
+                </MapContainer>
+              </div>
 
-                <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
-
-                <LocationMarker />
-
-                <MapViewHandler center={[latitude, longitude]} zoom={mapZoom} />
-
-              </MapContainer>
-
+              <p
+                style={{
+                  fontSize: "11px",
+                  color: "#d4af37",
+                  marginTop: "8px",
+                  textAlign: "center",
+                  opacity: 0.8,
+                }}
+              >
+                Location pinned at {latitude.toFixed(4)}, {longitude.toFixed(4)}.
+              </p>
             </div>
-
-            {/* REST OF FORM */}
 
             <input
               type="text"
@@ -410,7 +288,9 @@ export default function SubmitContent() {
               required
             />
 
-            <input type="file" onChange={(e) => setImageFile(e.target.files[0])} />
+            <div className="file-box">
+              <input type="file" onChange={(e) => setImageFile(e.target.files[0])} />
+            </div>
 
             <button type="submit" className="submit-btn-gold">
               {isEditMode ? "Update Legend" : "Submit to Chronicles"}
@@ -422,9 +302,7 @@ export default function SubmitContent() {
           {message && <div className="mystic-success">{message}</div>}
 
         </div>
-
       </div>
     </>
   );
-
 }
