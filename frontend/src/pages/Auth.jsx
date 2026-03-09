@@ -57,7 +57,7 @@ export default function Auth() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError({ message: data.error || "Invalid credentials" });
+            setError({ message: JSON.stringify(data) });
         return;
       }
 
