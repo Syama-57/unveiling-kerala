@@ -105,13 +105,19 @@ REST_FRAMEWORK = {
 
 # --- FINAL CORS & CSRF TRUSTED ORIGINS ---
 # This Regex allows any Vercel preview URL from your project
+CORS_ALLOWED_ORIGINS = [
+    "https://unveiling-kerala.vercel.app",
+    "http://localhost:5173",
+]
+
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://.*\.vercel\.app$",
-    r"^http://localhost:5173$",
 ]
-# This Wildcard trusts all Vercel subdomains for POST/PUT requests
+
 CSRF_TRUSTED_ORIGINS = [
+    "https://unveiling-kerala.vercel.app",
     "https://*.vercel.app",
+    "https://unveiling-kerala.onrender.com",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
