@@ -17,7 +17,8 @@ class UserSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
 class StorySerializer(serializers.ModelSerializer):
-    short = serializers.CharField(source="short_description")
+    short = serializers.CharField(source="short_description", required=True)
+
     submitted_by_username = serializers.SerializerMethodField()
 
     class Meta:
@@ -28,7 +29,7 @@ class StorySerializer(serializers.ModelSerializer):
             "slug",
             "short",
             "full_story",
-            "latitude", 
+            "latitude",
             "longitude",
             "category",
             "district",
@@ -37,8 +38,11 @@ class StorySerializer(serializers.ModelSerializer):
             "is_approved",
             "submitted_by_username",
             "created_at",
-            
         ]
-
-    def get_submitted_by_username(self, obj):
-        return obj.submitted_by.username if obj.submitted_by else None
+        read_only_fields = [
+            "slug",
+            "source",
+            "is_approved",
+            "submitted_by_username",
+            "created_at",
+        ]

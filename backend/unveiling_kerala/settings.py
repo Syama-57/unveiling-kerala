@@ -39,10 +39,12 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'corsheaders.middleware.CorsMiddleware',  # MUST stay here for CORS to work
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -104,15 +106,12 @@ REST_FRAMEWORK = {
 # --- FINAL CORS & CSRF TRUSTED ORIGINS ---
 # This Regex allows any Vercel preview URL from your project
 CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://unveiling-kerala.*\.vercel\.app$",
+    r"^https://.*\.vercel\.app$",
     r"^http://localhost:5173$",
 ]
-
 # This Wildcard trusts all Vercel subdomains for POST/PUT requests
 CSRF_TRUSTED_ORIGINS = [
-    'https://unveiling-kerala.onrender.com',
-    'https://unveiling-kerala.vercel.app',
-    'https://*.vercel.app' 
+    "https://*.vercel.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
