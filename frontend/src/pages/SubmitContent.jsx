@@ -144,13 +144,15 @@ export default function SubmitContent() {
       });
 
       const data = await res.json();
+       if (res.status === 200 || res.status === 201) {
+  setMessage("Legend submitted successfully!");
+  setError("");
+  setTimeout(() => navigate("/dashboard"), 2000);
+} else {
+  console.log(data);
+  setError(data.detail || "Failed to save.");
+}
 
-      if (res.ok) {
-        setMessage(isEditMode ? "Legend updated." : "Legend submitted!");
-        setTimeout(() => navigate("/dashboard"), 2000);
-      } else {
-        setError(data.detail || "Failed to save.");
-      }
     } catch {
       setError("Network error.");
     }
