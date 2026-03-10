@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from geopy.geocoders import Nominatim
 
 class Story(models.Model):
     CATEGORY_CHOICES = [
