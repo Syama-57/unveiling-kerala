@@ -54,18 +54,18 @@ class Story(models.Model):
         ordering = ["-created_at"]
 
     def save(self, *args, **kwargs):
-
-     if not self.slug:
+      if not self.slug:
         base_slug = slugify(self.title)
         slug = base_slug
         counter = 1
+
         while Story.objects.filter(slug=slug).exists():
             slug = f"{base_slug}-{counter}"
             counter += 1
+
         self.slug = slug
 
     super().save(*args, **kwargs)
-
 
         # 3. AUTOMATIC LOCATION SEARCH (Geocoding)
         # This looks up the specific location of the story title independently
