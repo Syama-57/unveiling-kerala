@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import api from "../api/api";
+import api from "../api/axios";
 import "./Auth.css";
 import Navbar from "../components/Navbar";
 
