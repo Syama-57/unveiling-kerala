@@ -44,8 +44,8 @@ export default function Auth() {
     const cleanBase = API_BASE.endsWith('/') ? API_BASE.slice(0, -1) : API_BASE;
     
     const url = isLogin
-      ? `${cleanBase}/login/`
-      : `${cleanBase}/signup/`;
+      ? `${cleanBase}login/`
+      : `${cleanBase}signup/`;
 
     try {
       const res = await fetch(url, {
@@ -66,7 +66,7 @@ export default function Auth() {
         localStorage.setItem("refreshToken", data.refresh);
         navigate(from, { replace: true });
       } else {
-        const loginRes = await fetch(`${cleanBase}/login/`, {
+        const loginRes = await fetch(`${cleanBase}login/`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username, password }),

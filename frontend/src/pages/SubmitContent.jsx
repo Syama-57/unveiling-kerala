@@ -135,7 +135,7 @@ export default function SubmitContent() {
     }
 
     try {
-      const res = await fetch(`${API_BASE}/submit/`, {
+      const res = await fetch(`${API_BASE}submit/`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
