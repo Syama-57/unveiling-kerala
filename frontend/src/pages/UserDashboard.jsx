@@ -25,12 +25,12 @@ export default function UserDashboard() {
       setLoading(true);
       try {
         // FIXED: Replaced 127.0.0.1 with API_BASE
-        const myStoriesRes = await fetch(`${API_BASE}/my-stories/`, {
+        const myStoriesRes = await fetch(`${API_BASE}my-stories/`, {
           headers: { "Authorization": `Bearer ${token}` },
         });
 
         // FIXED: Replaced 127.0.0.1 with API_BASE
-        const bookmarksRes = await fetch(`${API_BASE}/my-bookmarks/`, {
+        const bookmarksRes = await fetch(`${API_BASE}my-bookmarks/`, {
           headers: { "Authorization": `Bearer ${token}` },
         });
 
@@ -57,7 +57,7 @@ export default function UserDashboard() {
     const token = localStorage.getItem("accessToken");
     try {
       // FIXED: Replaced 127.0.0.1 with API_BASE
-      const res = await fetch(`${API_BASE}/stories-manage/${id}/`, {
+      const res = await fetch(`${API_BASE}stories-manage/${id}/`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

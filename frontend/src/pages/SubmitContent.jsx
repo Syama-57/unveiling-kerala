@@ -86,7 +86,7 @@ export default function SubmitContent() {
         const token = localStorage.getItem("accessToken");
 
         try {
-          const res = await fetch(`${API_BASE}/stories-manage/${id}/`, {
+          const res = await fetch(`${API_BASE}stories-manage/${id}/`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
