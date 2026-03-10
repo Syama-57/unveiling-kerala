@@ -3,17 +3,29 @@ import { Link } from "react-router-dom";
 import placeholder from "../assets/myth/placeholder.jpg";
 import "./StoryCard.css";
 import { motion } from "framer-motion";
-const BACKEND_URL = "http://127.0.0.1:8000";
+
+const API_BASE = import.meta.env.VITE_API_URL;
+const BACKEND_URL = API_BASE.replace("/api/", "");
 
 const resolveImage = (img) => {
   if (!img) return placeholder;
-  if (img.startsWith("/media")) return `${BACKEND_URL}${img}`;
+
+  if (img.startsWith("/media")) {
+    return `${BACKEND_URL}${img}`;
+  }
+
   return img;
 };
 
 export default function StoryCard({ story, reverse = false }) {
   return (
-    <div className={`story-card ${reverse ? "reverse" : ""}`}>
+    <motion.div
+      className={`story-card ${reverse ? "reverse" : ""}`}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="story-image">
         <img src={resolveImage(story.img)} alt={story.title} />
       </div>
@@ -26,6 +38,6 @@ export default function StoryCard({ story, reverse = false }) {
           Read More
         </Link>
       </div>
-    </div>
+    </motion.div>
   );
 }
