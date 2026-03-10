@@ -54,19 +54,22 @@ class Story(models.Model):
         ordering = ["-created_at"]
 
     def save(self, *args, **kwargs):
-        # 2. Handle Automatic Slug Generation
-        if not self.slug:
-            base_slug = slugify(self.title)
-            slug = base_slug
-            counter = 1
-            while Story.objects.filter(slug=slug).exists():
-                slug = f"{base_slug}-{counter}"
-                counter += 1
-            self.slug = slug
+
+     if not self.slug:
+        base_slug = slugify(self.title)
+        slug = base_slug
+        counter = 1
+        while Story.objects.filter(slug=slug).exists():
+            slug = f"{base_slug}-{counter}"
+            counter += 1
+        self.slug = slug
+
+    super().save(*args, **kwargs)
+
 
         # 3. AUTOMATIC LOCATION SEARCH (Geocoding)
         # This looks up the specific location of the story title independently
-        if not self.latitude or not self.longitude:
+    if not self.latitude or not self.longitude:
             try:
                 geolocator = Nominatim(user_agent="unveiling_kerala")
                 # Search for: "Title, District, Kerala"
@@ -85,7 +88,7 @@ class Story(models.Model):
             except Exception as e:
                 print(f"Geocoding error: {e}")
 
-        super().save(*args, **kwargs)
+    super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
