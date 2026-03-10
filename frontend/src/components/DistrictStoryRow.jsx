@@ -3,11 +3,16 @@ import { Link } from "react-router-dom";
 import placeholder from "../assets/myth/placeholder.jpg";
 import "./DistrictStoryRow.css";
 
-const BACKEND_URL = "http://127.0.0.1:8000";
+const API_BASE = import.meta.env.VITE_API_URL;
+const BACKEND_URL = API_BASE.replace("/api/", "");
 
 const resolveImage = (img) => {
   if (!img) return placeholder;
-  if (img.startsWith("/media")) return `${BACKEND_URL}${img}`;
+
+  if (img.startsWith("/media")) {
+    return `${BACKEND_URL}${img}`;
+  }
+
   return img;
 };
 
@@ -21,6 +26,7 @@ export default function DistrictStoryRow({ story, reverse = false }) {
       <div className="district-content">
         <h2>{story.title}</h2>
         <p>{story.short}</p>
+
         <Link to={`/story/${story.slug}`} className="read-more">
           Read More
         </Link>
