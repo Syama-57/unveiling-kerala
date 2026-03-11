@@ -15,7 +15,6 @@ export default function Myths() {
   // If the image is a relative path from Django (starts with /media), 
   // we prepended the base Render URL.
   const resolveImage = (img) => {
-    if (!img) return "/placeholder.jpg";
     if (img.startsWith("/media")) {
        return `https://unveiling-kerala.onrender.com${img}`;
     }
