@@ -4,28 +4,29 @@ import { motion } from "framer-motion";
 import mythsData from "../data/mythsData";
 import "./Myth.css";
 import Navbar from "../components/Navbar";
+// --- 1. Import your custom api instance ---
+import api from "../api/api"; 
 
 export default function Myths() {
-
   const navigate = useNavigate();
-
   const [sections, setSections] = useState(mythsData);
 
-  const API_BASE = import.meta.env.VITE_API_URL;
-  const BACKEND_URL = API_BASE.replace("/api/", "");
-
+  // --- 2. Simplified Image Resolution ---
+  // If the image is a relative path from Django (starts with /media), 
+  // we prepended the base Render URL.
   const resolveImage = (img) => {
     if (!img) return "/placeholder.jpg";
-    if (img.startsWith("/media")) return `${BACKEND_URL}${img}`;
+    if (img.startsWith("/media")) {
+       return `https://unveiling-kerala.onrender.com${img}`;
+    }
     return img;
   };
 
   useEffect(() => {
-
-    fetch(`${API_BASE}stories/`)
-      .then(res => res.json())
-      .then(data => {
-
+    // --- 3. Use the api instance instead of fetch ---
+    api.get("stories/")
+      .then(res => {
+        const data = res.data;
         if (!Array.isArray(data)) return;
 
         const updatedSections = mythsData.map(section => ({
@@ -45,13 +46,11 @@ export default function Myths() {
         }
 
         data.forEach(story => {
-
           const exists = updatedSections.some(sec =>
             sec.items.some(item => item.slug === story.slug)
           );
 
           if (!exists) {
-
             communitySection.items.push({
               slug: story.slug,
               title: story.title,
@@ -60,18 +59,15 @@ export default function Myths() {
               img: story.image || "/placeholder.jpg",
               submittedByUser: true,
             });
-
           }
-
         });
 
         setSections(updatedSections);
-
       })
-      .catch(err => console.error(err));
+      .catch(err => console.error("Could not fetch community stories:", err));
+  }, []);
 
-  }, [API_BASE]);
-
+  // ... (rest of your return statement remains the same)
   return (
     <>
       <Navbar />
