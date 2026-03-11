@@ -107,11 +107,12 @@ REST_FRAMEWORK = {
 # This Regex allows any Vercel preview URL from your project
 CORS_ALLOWED_ORIGINS = [
     "https://unveiling-kerala.vercel.app",
+    "https://unveiling-kerala-caqsyoqk0-syama-57s-projects.vercel.app", # The one from your log
     "http://localhost:5173",
 ]
 
 CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://.*\.vercel\.app$",
+    r"^https://unveiling-kerala.*\.vercel\.app$",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
