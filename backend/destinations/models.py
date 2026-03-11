@@ -82,9 +82,8 @@ class Story(models.Model):
             except Exception as e:
                 print(f"Geocoding error: {e}")
 
-        # 3. Final Save - MUST BE INDENTED SAME AS 'if not self.slug'
+        # 3. Final Save - MUST BE INDENTED 8 SPACES
         super(Story, self).save(*args, **kwargs)
-
 
     def __str__(self):
         return self.title
