@@ -10,13 +10,11 @@ const getBaseURL = () => {
   // 2. Ensure it ends with /api/
   return `${url}/api/`;
 };
-
 const api = axios.create({
-  // 1. Ensure the domain ends with /api/
-  // 2. Use a fallback for local development
-  baseURL: (import.meta.env.VITE_API_URL || "http://127.0.0.1:8000").replace(/\/$/, "") + "/api/",
+  // Ensure /api/ is at the end!
+  baseURL: "https://unveiling-kerala.onrender.com/api/", 
   headers: { "Content-Type": "application/json" },
-});
+});  
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("accessToken");
