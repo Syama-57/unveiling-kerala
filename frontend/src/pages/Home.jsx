@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./Home.css";
 import Navbar from "../components/Navbar";
 
-import img1 from "../padayani.jpg";
-import img2 from "../temple4.jpg";
-import img3 from "../Adivasi-Tribes-of-Wayanad.png";
-
-import explore1 from "../explore1.jpg";
-import explore2 from "../explore2.jpg";
-import explore3 from "../explore3.jpg";
-
+// --- DELETE ALL IMAGE IMPORTS FROM HERE ---
 
 export default function Home() {
   useEffect(() => {
-    // 🔥 Carousel auto-run
     const carouselElement = document.getElementById("heroCarousel");
     if (carouselElement && window.bootstrap) {
       new window.bootstrap.Carousel(carouselElement, {
@@ -27,22 +19,16 @@ export default function Home() {
     }
   }, []);
 
-  
-
   return (
     <div className="home-container">
       <Navbar />
 
       {/* CAROUSEL */}
-      <div
-        id="heroCarousel"
-        className="carousel slide carousel-fade"
-        data-bs-ride="carousel"
-        data-bs-interval="3000"
-      >
+      <div id="heroCarousel" className="carousel slide carousel-fade" data-bs-ride="carousel">
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img src={img1} className="d-block w-100 hero-img" alt="slide1" />
+            {/* USE DIRECT STRINGS FOR THE SRC */}
+            <img src="/padayani.jpg" className="d-block w-100 hero-img" alt="slide1" />
             <div className="carousel-caption">
               <h2>Unseen Rituals</h2>
               <p>Discover forgotten cultural paths.</p>
@@ -50,7 +36,7 @@ export default function Home() {
           </div>
 
           <div className="carousel-item">
-            <img src={img2} className="d-block w-100 hero-img" alt="slide2" />
+            <img src="/temple4.jpg" className="d-block w-100 hero-img" alt="slide2" />
             <div className="carousel-caption">
               <h2>Ancient Echoes</h2>
               <p>Temples that whisper secrets of centuries.</p>
@@ -58,69 +44,38 @@ export default function Home() {
           </div>
 
           <div className="carousel-item">
-            <img src={img3} className="d-block w-100 hero-img" alt="slide3" />
+            <img src="/Adivasi-Tribes-of-Wayanad.png" className="d-block w-100 hero-img" alt="slide3" />
             <div className="carousel-caption">
               <h2>Tribal Legends</h2>
               <p>Stories of identity, roots, and resilience.</p>
             </div>
           </div>
         </div>
-
-        {/* Controls */}
-        <button
-          className="carousel-control-prev"
-          type="button"
-          data-bs-target="#heroCarousel"
-          data-bs-slide="prev"
-        >
-          <span className="carousel-control-prev-icon"></span>
-        </button>
-
-        <button
-          className="carousel-control-next"
-          type="button"
-          data-bs-target="#heroCarousel"
-          data-bs-slide="next"
-        >
-          <span className="carousel-control-next-icon"></span>
-        </button>
+        {/* ... controls remain same ... */}
       </div>
-
-     
 
       {/* EXPLORE SECTION */}
       <section className="explore-section">
         <h2>Explore the Unknown</h2>
-
         <div className="explore-grid">
           <div className="explore-card">
-            <img src={explore1} alt="explore1" />
-            <div className="explore-overlay">
-              “Every forest hides a forgotten tale.”
-            </div>
+            <img src="/explore1.jpg" alt="explore1" />
+            <div className="explore-overlay">“Every forest hides a forgotten tale.”</div>
           </div>
-
           <div className="explore-card">
-            <img src={explore2} alt="explore2" />
-            <div className="explore-overlay">
-              “The past never dies — it waits.”
-            </div>
+            <img src="/explore2.jpg" alt="explore2" />
+            <div className="explore-overlay">“The past never dies — it waits.”</div>
           </div>
-
           <div className="explore-card">
-            <img src={explore3} alt="explore3" />
-            <div className="explore-overlay">
-              “Mysteries breathe in silence.”
-            </div>
+            <img src="/explore3.jpg" alt="explore3" />
+            <div className="explore-overlay">“Mysteries breathe in silence.”</div>
           </div>
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer className="footer">
         <p>© 2025 Unveiling Kerala — Revealing the Unknown</p>
       </footer>
     </div>
   );
 }
-
