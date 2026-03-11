@@ -3,17 +3,16 @@ import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import "./StoryDetails.css";
 import Navbar from "../components/Navbar";
-import axios from "axios";
+// --- CHANGE: Use your custom api instance ---
+import api from "../api/api"; 
 import mythsData from "../data/mythsData";
 import MythMap from "../components/MythMap";
 import "leaflet/dist/leaflet.css";
-
 
 export default function StoryDetails() {
   const { slug } = useParams();
   const navigate = useNavigate();
 
-  // --- 1. ALL HOOKS MUST BE AT THE VERY TOP ---
   const [story, setStory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
@@ -22,14 +21,14 @@ export default function StoryDetails() {
   const isScrolling = useRef(false);
   const synth = window.speechSynthesis;
 
-  // --- 2. FETCHING LOGIC ---
   useEffect(() => {
     const fetchStory = async () => {
       const token = localStorage.getItem("accessToken");
       try {
-        const res = await axios.get(`${import.meta.env.VITE_API_URL}stories/${slug}/`);
+        // --- CHANGE: Use api.get with a relative path ---
+        // Our api instance already has the /api/ baseURL configured
+        const res = await api.get(`stories/${slug}/`);
         
-        // Find local data for images/slugs
         const local = mythsData
           .flatMap(section => section.items)
           .find(item => item.slug === slug);
@@ -38,11 +37,9 @@ export default function StoryDetails() {
 
         // Optional: Check bookmark status on load
         if (token && res.data.id) {
-           const statusRes = await fetch(`${import.meta.env.VITE_API_URL}bookmark/${res.data.id}/`, {
-             headers: { "Authorization": `Bearer ${token}` }
-           });
-           const statusData = await statusRes.json();
-           setIsBookmarked(statusData.bookmarked);
+           // --- CHANGE: Use api instance for bookmarks too ---
+           const statusRes = await api.get(`bookmark/${res.data.id}/`);
+           setIsBookmarked(statusRes.data.bookmarked);
         }
       } catch (err) {
         console.error("Story not found", err);
@@ -53,27 +50,21 @@ export default function StoryDetails() {
     fetchStory();
   }, [slug]);
 
-  // Cleanup for audio
   useEffect(() => {
     return () => synth.cancel();
   }, []);
 
-  // --- 3. EVENT HANDLERS ---
   const toggleBookmark = async () => {
     const token = localStorage.getItem("accessToken");
     if (!token) { navigate("/login"); return; }
 
     try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}bookmark/${story.id}/`, {
-        method: "POST",
-        headers: { 
-          "Authorization": `Bearer ${token}`, 
-          "Content-Type": "application/json"
-        }
-      });
-      const data = await res.json();
-      setIsBookmarked(data.bookmarked); 
-    } catch (err) { console.error("Bookmark failed", err); }
+      // --- CHANGE: Use api instance to handle tokens and URL automatically ---
+      const res = await api.post(`bookmark/${story.id}/`);
+      setIsBookmarked(res.data.bookmarked); 
+    } catch (err) { 
+      console.error("Bookmark failed", err); 
+    }
   };
 
   const toggleAudioNarrative = () => {
@@ -113,7 +104,6 @@ export default function StoryDetails() {
     setTimeout(() => { isScrolling.current = false; }, 900);
   };
 
-  // --- 4. EARLY RETURNS (AFTER ALL HOOKS) ---
   if (loading) return <div className="mystic-loader">Loading story…</div>;
   if (!story) return <div className="mystic-loader">Story not available.</div>;
 
