@@ -4,13 +4,13 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./Home.css";
 import Navbar from "../components/Navbar";
 
-import img1 from "../assets/padayani.jpg";
-import img2 from "../assets/temple4.jpg";
-import img3 from "../assets/Adivasi-Tribes-of-Wayanad.png";
+import img1 from "../padayani.jpg";
+import img2 from "../temple4.jpg";
+import img3 from "../Adivasi-Tribes-of-Wayanad.png";
 
-import explore1 from "../assets/explore1.jpg";
-import explore2 from "../assets/explore2.jpg";
-import explore3 from "../assets/explore3.jpg";
+import explore1 from "../explore1.jpg";
+import explore2 from "../explore2.jpg";
+import explore3 from "../explore3.jpg";
 
 
 export default function Home() {
