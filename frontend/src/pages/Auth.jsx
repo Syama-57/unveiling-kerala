@@ -39,48 +39,42 @@ export default function Auth() {
     setError(null);
 
     try {
+      // Use "login/" instead of "/login/" to avoid double-slash issues with baseURL
+      const endpoint = isLogin ? "login/" : "signup/";
+      
+      const res = await api.post(endpoint, {
+        username,
+        password,
+      });
 
       if (isLogin) {
-
-        const res = await api.post("/login/", {
-          username,
-          password,
-        });
-
         localStorage.setItem("accessToken", res.data.access);
         localStorage.setItem("refreshToken", res.data.refresh);
-
         navigate(from, { replace: true });
-
       } else {
-
-        await api.post("/signup/", {
-          username,
-          password,
-        });
-
-        const loginRes = await api.post("/login/", {
+        // After signup, we immediately log them in
+        const loginRes = await api.post("login/", {
           username,
           password,
         });
 
         localStorage.setItem("accessToken", loginRes.data.access);
         localStorage.setItem("refreshToken", loginRes.data.refresh);
-
         navigate("/", { replace: true });
-
       }
 
     } catch (err) {
-
       if (err.response) {
-        setError({ message: JSON.stringify(err.response.data) });
+        // Extracting specific Django error messages for a cleaner UI
+        const serverError = err.response.data;
+        const displayMsg = serverError.detail || serverError.error || "The gate is barred. Check your credentials.";
+        setError({ message: displayMsg });
       } else {
-        setError({ message: "Server error. Try again later." });
+        setError({ message: "The spirits are silent. (Server error. Try again later.)" });
       }
-
     }
   };
+
 
   return (
     <>
