@@ -55,7 +55,9 @@
   object-fit: cover;
   filter: brightness(60%);
 }
-
+.hero-section {
+  background-image: url("/myth/hero.jpg");
+}
 .carousel-caption {
   bottom: 0;
   transition: 0.3s ease-in-out;
