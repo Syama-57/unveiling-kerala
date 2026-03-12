@@ -25,7 +25,7 @@ export default function Home() {
         <div className="carousel-inner">
           <div className="carousel-item active">
             {/* Added /images/ based on your screenshot structure */}
-            <img src="/images/padayani.jpg" className="d-block w-100 hero-img" alt="slide1" />
+            <img src="/myth/padayani.jpg" className="d-block w-100 hero-img" alt="slide1" />
             <div className="carousel-caption">
               <h2>Unseen Rituals</h2>
               <p>Discover forgotten cultural paths.</p>
@@ -33,7 +33,7 @@ export default function Home() {
           </div>
 
           <div className="carousel-item">
-            <img src="/images/temple4.jpg" className="d-block w-100 hero-img" alt="slide2" />
+            <img src="/myth/temple4.jpg" className="d-block w-100 hero-img" alt="slide2" />
             <div className="carousel-caption">
               <h2>Ancient Echoes</h2>
               <p>Temples that whisper secrets of centuries.</p>
@@ -42,7 +42,7 @@ export default function Home() {
 
           <div className="carousel-item">
             {/* Matches the specific name in your screenshot */}
-            <img src="/Adivasi-Tribes-of-Wayanad.png" className="d-block w-100 hero-img" alt="slide3" />
+            <img src="/myth/Adivasi-Tribes-of-Wayanad.png" className="d-block w-100 hero-img" alt="slide3" />
             <div className="carousel-caption">
               <h2>Tribal Legends</h2>
               <p>Stories of identity, roots, and resilience.</p>
