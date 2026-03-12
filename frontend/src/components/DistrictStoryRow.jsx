@@ -6,9 +6,11 @@ const API_BASE = import.meta.env.VITE_API_URL || "https://unveiling-kerala.onren
 const BACKEND_URL = API_BASE.replace(/\/api\/?$/, "");
 
 const resolveImage = (img) => {
-  if (!img) return "/placeholder.jpg";
+  if (!img) return "/bg.jpg";
   if (img.startsWith("/media")) return `${BACKEND_URL}${img}`;
-  return img.replace("/src/assets", "");
+  
+  let cleanPath = img.replace("/src/assets", "");
+  return cleanPath.startsWith("/") ? cleanPath : `/${cleanPath}`;
 };
 
 export default function DistrictStoryRow({ story, reverse = false }) {
@@ -20,7 +22,7 @@ export default function DistrictStoryRow({ story, reverse = false }) {
         <img 
           src={resolveImage(story.image || story.img)} 
           alt={story.title} 
-          onError={(e) => { e.target.src = "/placeholder.jpg"; }}
+          onError={(e) => { e.target.src = "/bg.jpg"; }}
         />
       </div>
       <div className="district-content">

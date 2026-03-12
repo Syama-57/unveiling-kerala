@@ -7,14 +7,18 @@ const API_BASE = import.meta.env.VITE_API_URL || "https://unveiling-kerala.onren
 const BACKEND_URL = API_BASE.replace(/\/api\/?$/, "");
 
 const resolveImage = (img) => {
-  if (!img) return "/placeholder.jpg"; // Path in your public folder
+  if (!img) return "/bg.jpg"; // Using your bg.jpg as default
 
+  // 1. Handle Backend Media from Render
   if (img.startsWith("/media")) {
     return `${BACKEND_URL}${img}`;
   }
+
+  // 2. Clean up old src paths and map to public root
+  let path = img.replace("/src/assets", "");
   
-  // If data still has old src paths, clean them
-  return img.replace("/src/assets", "");
+  // 3. Ensure path starts with /
+  return path.startsWith("/") ? path : `/${path}`;
 };
 
 export default function StoryCard({ story, reverse = false }) {
@@ -32,7 +36,7 @@ export default function StoryCard({ story, reverse = false }) {
         <img 
           src={resolveImage(story.image || story.img)} 
           alt={story.title} 
-          onError={(e) => { e.target.src = "/placeholder.jpg"; }}
+          onError={(e) => { e.target.src = "/bg.jpg"; }}
         />
       </div>
 
