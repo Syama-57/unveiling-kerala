@@ -42,7 +42,7 @@ export default function Home() {
 
           <div className="carousel-item">
             {/* Matches the specific name in your screenshot */}
-            <img src="/myth/Adivasi-Tribes-of-Wayanad.png" className="d-block w-100 hero-img" alt="slide3" />
+            <img src="/myth/Adivasi-Tribes-of-Wayanad.jpg" className="d-block w-100 hero-img" alt="slide3" />
             <div className="carousel-caption">
               <h2>Tribal Legends</h2>
               <p>Stories of identity, roots, and resilience.</p>
