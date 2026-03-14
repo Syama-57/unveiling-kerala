@@ -1,11 +1,17 @@
 import axios from "axios";
 
-// This logic ensures that if the environment variable fails, it defaults to your live site
-const API_BASE = import.meta.env.VITE_API_URL || "https://unveiling-kerala.onrender.com/api/";
-
 const api = axios.create({
-  baseURL: API_BASE,
-  headers: { "Content-Type": "application/json" },
+  // Adding /api/ here and ensuring no trailing slash issues
+  baseURL: "https://unveiling-kerala.onrender.com/api", 
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+// Add a request interceptor to log exactly where the app is looking
+api.interceptors.request.use((config) => {
+  console.log("Fetching from:", config.baseURL + "/" + config.url);
+  return config;
 });
 
 export default api;
