@@ -68,6 +68,15 @@ export default function StoryDetails() {
 
   // 2. Data Safety Check for Paragraphs
   const fullText = story?.full_story || story?.description || "No text available for this legend.";
+  const paragraphs = fullText ? fullText.split("\n").filter((p) => p.trim() !== "") : [];
+
+// If there are no paragraphs yet (loading or 404), show a fallback page structure
+  const pages = paragraphs.length > 0 ? [
+    { type: "hero", title: story.title, district: story.district, image: story.image },
+    ...paragraphs.map((p) => ({ type: "content", text: p })),
+    { type: "map" }, 
+    { type: "end" },
+] : [{ type: "loading" }];
 
   useEffect(() => {
     return () => synth.cancel();
@@ -125,14 +134,6 @@ export default function StoryDetails() {
 
   if (loading) return <div className="mystic-loader">Loading story…</div>;
   if (!story) return <div className="mystic-loader">Story not available.</div>;
-
-  const paragraphs = story.full_story.split("\n").filter((p) => p.trim() !== "");
-  const pages = [
-    { type: "hero", title: story.title, district: story.district, image: story.image },
-    ...paragraphs.map((p) => ({ type: "content", text: p })),
-    { type: "map" }, 
-    { type: "end" },
-  ];
 
   return (
     <>
