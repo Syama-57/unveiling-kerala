@@ -13,7 +13,7 @@ from .views import (
 )
 
 urlpatterns = [
-    # The 'api/' prefix is already added by the project's main urls.py
+    # Prefix 'api/' is provided by the main project urls.py
     path("signup/", SignupView.as_view()),
     path("login/", login_view),
 
@@ -29,6 +29,5 @@ urlpatterns = [
     path('my-bookmarks/', views.get_my_bookmarks, name='my-bookmarks'),
 ]
 
-# Keep this for local media testing
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

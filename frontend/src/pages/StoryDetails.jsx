@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import "./StoryDetails.css";
 import Navbar from "../components/Navbar";
-// --- CHANGE: Use your custom api instance ---
 import api from "../api/api"; 
 import mythsData from "../data/mythsData";
 import MythMap from "../components/MythMap";
@@ -21,27 +20,21 @@ export default function StoryDetails() {
   const isScrolling = useRef(false);
   const synth = window.speechSynthesis;
 
-  
-   // 1. Updated Fetch Logic with Image Resolution
   useEffect(() => {
     const fetchStory = async () => {
       try {
-        // Axios automatically handles the baseURL /api/
         const res = await api.get(`stories/${slug}/`);
         
         const local = mythsData
           .flatMap(section => section.items)
           .find(item => item.slug === slug);
 
-        // Merge backend data with local fallback
         const mergedStory = { ...local, ...res.data };
 
-        // --- IMAGE RESOLUTION LOGIC ---
-        // If image comes from Django, it starts with /media/
+        // Image Resolution logic
         if (mergedStory.image && mergedStory.image.startsWith("/media")) {
           mergedStory.image = `https://unveiling-kerala.onrender.com${mergedStory.image}`;
         } else if (!mergedStory.image || mergedStory.image.includes("/assets/")) {
-          // Fallback to your new public/myth folder
           mergedStory.image = local?.img || "/myth/hero.jpg";
         }
 
@@ -54,7 +47,6 @@ export default function StoryDetails() {
         }
       } catch (err) {
         console.error("Story fetching failed:", err);
-        // If API fails, try to load just the local data
         const localOnly = mythsData
           .flatMap(section => section.items)
           .find(item => item.slug === slug);
@@ -66,33 +58,31 @@ export default function StoryDetails() {
     fetchStory();
   }, [slug]);
 
-  // 2. Data Safety Check for Paragraphs
-  const fullText = story?.full_story || story?.description || "No text available for this legend.";
-  const paragraphs = fullText ? fullText.split("\n").filter((p) => p.trim() !== "") : [];
-
-// If there are no paragraphs yet (loading or 404), show a fallback page structure
-  const pages = paragraphs.length > 0 ? [
-    { type: "hero", title: story.title, district: story.district, image: story.image },
-    ...paragraphs.map((p) => ({ type: "content", text: p })),
-    { type: "map" }, 
-    { type: "end" },
-] : [{ type: "loading" }];
-
   useEffect(() => {
     return () => synth.cancel();
   }, []);
 
+  // --- SAFETY CHECKS BEFORE RENDERING ---
+  if (loading) return <div className="mystic-loader">Seeking the legend...</div>;
+  if (!story) return <div className="mystic-loader">Story not available.</div>;
+
+  const fullText = story.full_story || story.description || "No text available.";
+  const paragraphs = fullText.split("\n").filter((p) => p.trim() !== "");
+
+  const pages = [
+    { type: "hero", title: story.title, district: story.district, image: story.image },
+    ...paragraphs.map((p) => ({ type: "content", text: p })),
+    { type: "map" }, 
+    { type: "end" },
+  ];
+
   const toggleBookmark = async () => {
     const token = localStorage.getItem("accessToken");
     if (!token) { navigate("/login"); return; }
-
     try {
-      // --- CHANGE: Use api instance to handle tokens and URL automatically ---
       const res = await api.post(`bookmark/${story.id}/`);
       setIsBookmarked(res.data.bookmarked); 
-    } catch (err) { 
-      console.error("Bookmark failed", err); 
-    }
+    } catch (err) { console.error("Bookmark failed", err); }
   };
 
   const toggleAudioNarrative = () => {
@@ -100,13 +90,9 @@ export default function StoryDetails() {
       synth.cancel();
       setIsSpeaking(false);
     } else {
-      const paragraphs = story.full_story.split("\n").filter((p) => p.trim() !== "");
-      const fullText = paragraphs.join(" ");
-      const utterance = new SpeechSynthesisUtterance(fullText);
+      const utterance = new SpeechSynthesisUtterance(paragraphs.join(" "));
       const voices = synth.getVoices();
       utterance.voice = voices.find(v => v.name.includes("India")) || voices[0];
-      utterance.pitch = 0.9;
-      utterance.rate = 0.9;
       utterance.onend = () => setIsSpeaking(false);
       synth.speak(utterance);
       setIsSpeaking(true);
@@ -114,11 +100,8 @@ export default function StoryDetails() {
   };
 
   const handleWheel = (e) => {
-    if (!story?.full_story || isScrolling.current) return;
-    const paragraphs = story.full_story.split("\n").filter((p) => p.trim() !== "");
-    const totalPages = paragraphs.length + 3; 
-
-    if (e.deltaY > 0 && currentPage < totalPages - 1) {
+    if (isScrolling.current) return;
+    if (e.deltaY > 0 && currentPage < pages.length - 1) {
       lockScroll();
       setCurrentPage((p) => p + 1);
     } else if (e.deltaY < 0 && currentPage > 0) {
@@ -132,27 +115,16 @@ export default function StoryDetails() {
     setTimeout(() => { isScrolling.current = false; }, 900);
   };
 
-  if (loading) return <div className="mystic-loader">Loading story…</div>;
-  if (!story) return <div className="mystic-loader">Story not available.</div>;
-
   return (
     <>
       <Navbar />
       <div className="book-stage" onWheel={handleWheel}>
         <button className="nav-close" onClick={() => navigate(-1)}>✕</button>
-
         <div className="story-controls-overlay">
-          <button 
-            className={`bookmark-btn-floating ${isBookmarked ? 'active' : ''}`} 
-            onClick={toggleBookmark}
-          >
+          <button className={`bookmark-btn-floating ${isBookmarked ? 'active' : ''}`} onClick={toggleBookmark}>
             {isBookmarked ? "❤️" : "🤍"}
           </button>
-
-          <button 
-            className={`audio-narrator-btn ${isSpeaking ? 'speaking' : ''}`} 
-            onClick={toggleAudioNarrative}
-          >
+          <button className={`audio-narrator-btn ${isSpeaking ? 'speaking' : ''}`} onClick={toggleAudioNarrative}>
             {isSpeaking ? "🔊 Pause" : "🔈 Listen"}
           </button>
         </div>
@@ -167,12 +139,7 @@ export default function StoryDetails() {
             className="page-frame"
           >
             {pages[currentPage].type === "hero" && (
-              <div
-                className="page-hero"
-                style={{
-                  backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.4), #000), url(${pages[currentPage].image})`,
-                }}
-              >
+              <div className="page-hero" style={{ backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.4), #000), url(${pages[currentPage].image})` }}>
                 <div className="hero-inner">
                   <span className="gold-accent">{pages[currentPage].district}</span>
                   <h1>{pages[currentPage].title}</h1>
@@ -191,11 +158,7 @@ export default function StoryDetails() {
               <div className="page-content" style={{ padding: '20px', textAlign: 'center' }}>
                 <h2 className="gold-accent mb-4">THE SACRED GEOGRAPHY</h2>
                 <div style={{ width: '100%', height: '400px', borderRadius: '12px', border: '1px solid #d4af37', overflow: 'hidden' }}>
-                  <MythMap 
-                    stories={[story]} 
-                    center={[parseFloat(story.latitude), parseFloat(story.longitude)]} 
-                    zoom={14} 
-                  />
+                  <MythMap stories={[story]} center={[parseFloat(story.latitude), parseFloat(story.longitude)]} zoom={14} />
                 </div>
               </div>
             )}
@@ -203,10 +166,7 @@ export default function StoryDetails() {
             {pages[currentPage].type === "end" && (
               <div className="page-content text-center">
                 <h2 className="gold-accent">The End</h2>
-                <p className="story-text">The legend of {story.title} is now part of your journey.</p>
-                <button className="submit-btn-gold mt-4" onClick={() => navigate("/myth")}>
-                  Return to Archive
-                </button>
+                <button className="submit-btn-gold mt-4" onClick={() => navigate("/myth")}>Return to Archive</button>
               </div>
             )}
           </motion.div>
