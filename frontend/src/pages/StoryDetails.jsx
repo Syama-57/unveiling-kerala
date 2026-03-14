@@ -23,7 +23,8 @@ export default function StoryDetails() {
   useEffect(() => {
     const fetchStory = async () => {
       try {
-        const res = await api.get(`stories/${slug}/`);
+        // Replace your api.get line with this:
+const res = await api.get(`https://unveiling-kerala.onrender.com/api/stories/${slug}/`);
         
         const local = mythsData
           .flatMap(section => section.items)
