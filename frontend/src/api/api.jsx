@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// This ensures we hit the live backend in production
+// This logic ensures that if the environment variable fails, it defaults to your live site
 const API_BASE = import.meta.env.VITE_API_URL || "https://unveiling-kerala.onrender.com/api/";
 
 const api = axios.create({
