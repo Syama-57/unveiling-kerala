@@ -21,34 +21,53 @@ export default function StoryDetails() {
   const isScrolling = useRef(false);
   const synth = window.speechSynthesis;
 
+  
+   // 1. Updated Fetch Logic with Image Resolution
   useEffect(() => {
     const fetchStory = async () => {
-      const token = localStorage.getItem("accessToken");
       try {
-        // --- CHANGE: Use api.get with a relative path ---
-        // Our api instance already has the /api/ baseURL configured
+        // Axios automatically handles the baseURL /api/
         const res = await api.get(`stories/${slug}/`);
         
         const local = mythsData
           .flatMap(section => section.items)
           .find(item => item.slug === slug);
 
-        setStory({ ...local, ...res.data });
+        // Merge backend data with local fallback
+        const mergedStory = { ...local, ...res.data };
 
-        // Optional: Check bookmark status on load
+        // --- IMAGE RESOLUTION LOGIC ---
+        // If image comes from Django, it starts with /media/
+        if (mergedStory.image && mergedStory.image.startsWith("/media")) {
+          mergedStory.image = `https://unveiling-kerala.onrender.com${mergedStory.image}`;
+        } else if (!mergedStory.image || mergedStory.image.includes("/assets/")) {
+          // Fallback to your new public/myth folder
+          mergedStory.image = local?.img || "/myth/hero.jpg";
+        }
+
+        setStory(mergedStory);
+
+        const token = localStorage.getItem("accessToken");
         if (token && res.data.id) {
-           // --- CHANGE: Use api instance for bookmarks too ---
            const statusRes = await api.get(`bookmark/${res.data.id}/`);
            setIsBookmarked(statusRes.data.bookmarked);
         }
       } catch (err) {
-        console.error("Story not found", err);
+        console.error("Story fetching failed:", err);
+        // If API fails, try to load just the local data
+        const localOnly = mythsData
+          .flatMap(section => section.items)
+          .find(item => item.slug === slug);
+        if (localOnly) setStory({ ...localOnly, image: localOnly.img });
       } finally {
         setLoading(false);
       }
     };
     fetchStory();
   }, [slug]);
+
+  // 2. Data Safety Check for Paragraphs
+  const fullText = story?.full_story || story?.description || "No text available for this legend.";
 
   useEffect(() => {
     return () => synth.cancel();
