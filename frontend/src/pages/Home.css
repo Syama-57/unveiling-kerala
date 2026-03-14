@@ -154,30 +154,64 @@
   margin-top: 70px;
   font-size: 0.9rem;
 }
+/* --- UPDATED MOBILE RESPONSIVENESS --- */
 @media (max-width: 768px) {
-  .home-container {
-    padding: 10px;
+  /* 1. Hero Section & Carousel */
+  .hero-img {
+    height: 50vh; /* Shorter image so the text fits on screen */
   }
 
-  .hero-section {
-    height: 60vh; /* Shorter hero on mobile */
-    text-align: center;
+  .hero-content {
+    bottom: 10%; /* Move text up slightly */
+    width: 90%;
   }
 
-  .hero-title {
-    font-size: 2.2rem;
-    padding: 0 10px;
+  .hero-content h1 {
+    font-size: 2.2rem; /* Shrink from 4rem */
   }
 
-  /* If you have a grid of story cards, make them 1 column */
-  .stories-grid {
-    display: grid;
-    grid-template-columns: 1fr; /* Force cards to stack vertically */
-    gap: 20px;
+  .hero-content p {
+    font-size: 1rem;
   }
 
-  .story-card {
-    width: 100%; /* Take up full width */
-    margin: 0 auto;
+  .carousel-caption h2 {
+    font-size: 1.8rem; /* Shrink from 3rem */
+  }
+
+  .carousel-caption p {
+    font-size: 0.9rem;
+  }
+
+  /* 2. Explore Section */
+  .explore-section {
+    padding: 40px 5%; /* Less padding on sides */
+  }
+
+  .explore-section h2 {
+    font-size: 1.8rem; /* Smaller heading */
+    margin-bottom: 30px;
+  }
+
+  /* 3. The Grid (CRITICAL) */
+  .explore-grid {
+    grid-template-columns: 1fr; /* Force cards into 1 column */
+    gap: 15px;
+  }
+
+  .explore-card img {
+    height: 250px; /* shorter cards for easier scrolling */
+  }
+
+  .explore-overlay {
+    opacity: 1; /* On mobile, show text always since there is no 'hover' */
+    font-size: 1rem;
+    bottom: 10px;
+    left: 10px;
+  }
+
+  /* 4. Footer */
+  .footer {
+    margin-top: 40px;
+    font-size: 0.8rem;
   }
 }
