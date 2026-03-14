@@ -178,4 +178,24 @@
     height: 100vh; /* Ensure it takes the full mobile height */
     overflow: hidden;
   }
+/* Add this at the very bottom of StoryDetails.css */
+@media (max-width: 768px) {
+  .page-frame {
+    width: 90%;
+    height: 80vh;
+    padding: 20px;
+  }
+  .hero-inner h1 {
+    font-size: 2rem;
+  }
+  .story-text {
+    font-size: 1rem;
+    max-height: 60vh;
+    overflow-y: auto; /* Allows scrolling inside long paragraphs */
+  }
+  .book-stage {
+    touch-action: none; /* Prevents browser pull-to-refresh while swiping */
+  }
 }
+}
+  
