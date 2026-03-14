@@ -23,31 +23,42 @@ export default function StoryDetails() {
   useEffect(() => {
     const fetchStory = async () => {
       try {
-        // Replace your api.get line with this:
-const res = await api.get(`https://unveiling-kerala.onrender.com/api/stories/${slug}/`);
+        setLoading(true);
+        // FORCE: Using native fetch with absolute URL to bypass Axios config/cache issues
+        const response = await fetch(`https://unveiling-kerala.onrender.com/api/stories/${slug}/`);
         
+        if (!response.ok) throw new Error(`Server responded with ${response.status}`);
+        
+        const data = await response.json();
+
+        // Match with local data for fallbacks (districts, local assets)
         const local = mythsData
           .flatMap(section => section.items)
           .find(item => item.slug === slug);
 
-        const mergedStory = { ...local, ...res.data };
+        const mergedStory = { ...local, ...data };
 
-        // Image Resolution logic
+        // Absolute Image Resolution
         if (mergedStory.image && mergedStory.image.startsWith("/media")) {
           mergedStory.image = `https://unveiling-kerala.onrender.com${mergedStory.image}`;
-        } else if (!mergedStory.image || mergedStory.image.includes("/assets/")) {
+        } else {
           mergedStory.image = local?.img || "/myth/hero.jpg";
         }
 
         setStory(mergedStory);
 
+        // Handle bookmark status if logged in
         const token = localStorage.getItem("accessToken");
-        if (token && res.data.id) {
-           const statusRes = await api.get(`bookmark/${res.data.id}/`);
-           setIsBookmarked(statusRes.data.bookmarked);
+        if (token && data.id) {
+           try {
+             const statusRes = await api.get(`bookmark/${data.id}/`);
+             setIsBookmarked(statusRes.data.bookmarked);
+           } catch (bkErr) {
+             console.warn("Could not fetch bookmark status", bkErr);
+           }
         }
       } catch (err) {
-        console.error("Story fetching failed:", err);
+        console.error("Story fetching failed. Using local fallback.", err);
         const localOnly = mythsData
           .flatMap(section => section.items)
           .find(item => item.slug === slug);
@@ -56,18 +67,19 @@ const res = await api.get(`https://unveiling-kerala.onrender.com/api/stories/${s
         setLoading(false);
       }
     };
-    fetchStory();
+
+    fetchStory(); // CRITICAL: This was missing!
   }, [slug]);
 
   useEffect(() => {
     return () => synth.cancel();
   }, []);
 
-  // --- SAFETY CHECKS BEFORE RENDERING ---
+  // --- EARLY RETURNS TO PREVENT CRASHING ---
   if (loading) return <div className="mystic-loader">Seeking the legend...</div>;
   if (!story) return <div className="mystic-loader">Story not available.</div>;
 
-  const fullText = story.full_story || story.description || "No text available.";
+  const fullText = story.full_story || story.description || "No text available for this legend.";
   const paragraphs = fullText.split("\n").filter((p) => p.trim() !== "");
 
   const pages = [
@@ -159,7 +171,11 @@ const res = await api.get(`https://unveiling-kerala.onrender.com/api/stories/${s
               <div className="page-content" style={{ padding: '20px', textAlign: 'center' }}>
                 <h2 className="gold-accent mb-4">THE SACRED GEOGRAPHY</h2>
                 <div style={{ width: '100%', height: '400px', borderRadius: '12px', border: '1px solid #d4af37', overflow: 'hidden' }}>
-                  <MythMap stories={[story]} center={[parseFloat(story.latitude), parseFloat(story.longitude)]} zoom={14} />
+                  {story.latitude && story.longitude ? (
+                     <MythMap stories={[story]} center={[parseFloat(story.latitude), parseFloat(story.longitude)]} zoom={14} />
+                  ) : (
+                     <p>Map location not available.</p>
+                  )}
                 </div>
               </div>
             )}
