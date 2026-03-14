@@ -154,3 +154,30 @@
   margin-top: 70px;
   font-size: 0.9rem;
 }
+@media (max-width: 768px) {
+  .home-container {
+    padding: 10px;
+  }
+
+  .hero-section {
+    height: 60vh; /* Shorter hero on mobile */
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+    padding: 0 10px;
+  }
+
+  /* If you have a grid of story cards, make them 1 column */
+  .stories-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Force cards to stack vertically */
+    gap: 20px;
+  }
+
+  .story-card {
+    width: 100%; /* Take up full width */
+    margin: 0 auto;
+  }
+}

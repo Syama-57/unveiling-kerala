@@ -281,5 +281,24 @@
   border-color: #ff6b6b;
   box-shadow: 0 0 10px rgba(255, 107, 107, 0.2);
 }
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 15px;
+    flex-direction: row; /* Keep logo and menu on one line */
+    justify-content: space-between;
+  }
 
+  .nav-logo {
+    font-size: 1.2rem; /* Shrink logo text */
+  }
+
+  .nav-links {
+    gap: 10px; /* Reduce space between links */
+  }
+
+  .nav-links a {
+    font-size: 0.85rem; /* Smaller text for links */
+    padding: 5px;
+  }
+}
 /* ... Keep your Search and Responsive styles ... */
